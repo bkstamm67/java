@@ -1,3 +1,12 @@
+/*
+ * program:  main.java (2 of 2)
+ * author:  Brian Stamm
+ * date:  12.6.16
+ * description:  This uses diceCup.java and its methods to create 
+ * a diceCup object from user's input and return the total of the
+ * face of the dice.
+ */
+
 package dice;
 
 import java.util.Scanner;

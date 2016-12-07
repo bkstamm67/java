@@ -1,3 +1,12 @@
+/*
+ * program:  Box.java (1 of 2)
+ * author:  Brian Stamm
+ * date:  12.6.16
+ * description:  This creates the Box object that has it's
+ * basic measurements.  It can return basic descriptors of 
+ * its measurements, like volume.
+ */
+
 package box;
 
 public class Box {

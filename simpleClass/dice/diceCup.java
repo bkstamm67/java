@@ -1,3 +1,11 @@
+/*
+ * program:  diceCup.java (2 of 2)
+ * author:  Brian Stamm
+ * date:  12.6.16
+ * description:  This creates an object of diceCup that has a 
+ * number of dices and has a total of faces.  
+ */
+
 package dice;
 
 import java.util.Random;
