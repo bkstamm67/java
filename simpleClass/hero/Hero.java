@@ -63,5 +63,25 @@ public class Hero {
 	public void setMoney(int money) {
 		this.money = money;
 	}
+	
+	public boolean takeDamage(int damage){
+		int health = this.hitPoints;
+		health -= damage;
+		if(health > 0){
+			this.hitPoints = health;
+			return true;
+		}
+		else {
+			this.hitPoints = 0;
+			return false;
+		}
+	}
+	
+	public void printStats(){
+		System.out.println("Health points:  " + this.hitPoints);
+		System.out.println("Strength:  " + this.strength);
+		System.out.println("Speed:  " + this.speed);
+		System.out.println("Money:  " + this.money);
+	}
 
 }
