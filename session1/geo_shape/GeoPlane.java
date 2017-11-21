@@ -12,18 +12,13 @@ public class GeoPlane {
 	private List<GeoShape> shapes = new ArrayList<GeoShape>();
 	
 	/*
-	public GeoPlane() {
-		this.shapes = new ArrayList<GeoShape>(); 
-	}
-	*/
-	
-	/*
 	 * @param GeoShape shape
 	 * Adds a shape to the list.
 	 */
 	public void addShape(GeoShape shape) {
 		shapes.add(shape);
 	}
+	
 	/*
 	 * @param GeoShape shape
 	 * Removes a given shape from a list.
@@ -48,5 +43,4 @@ public class GeoPlane {
 			shape.draw(null);
 		}
 	}
-	
 }

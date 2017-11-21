@@ -30,7 +30,7 @@ public abstract class GeoShape {
 	/*
 	 * @param GeoPoint origin
 	 * @throws IllegalArgumentException
-	 * This is the setter for
+	 * This is the setter for origin.
 	 */
 	public void setOrigin( GeoPoint origin ) throws IllegalArgumentException{
 		if(origin == null) {
@@ -62,35 +62,5 @@ public abstract class GeoShape {
 		int rgb = this.color.getRGB() & 0x00ffffff;
 		return String.format("origin=%s,color=#%06x",origin.toString(),rgb);
 	}
-	/*
-	@Override
-	public boolean equals(Object other) {
-		boolean truth = true;
-		return truth;
-	}
-	*/
-	/*
-	public boolean equals(GeoPoint other) {
-		boolean truth = true;
-		if((other.getXco() == this.xco) && (other.getYco() == this.getYco())) {
-			truth = true;
-		}
-		return truth;
-		
-		 @Override
-    public boolean equals(Object o) {
-
-        if (o == this) return true;
-        if (!(o instanceof User)) {
-            return false;
-        }
-        User user = (User) o;
-        return age == user.age &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(passport, user.passport);
-    }
-
-	}*/
-
-
+	
 }
