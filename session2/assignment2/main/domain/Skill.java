@@ -11,9 +11,13 @@ public enum Skill {
 	SOFTWARE_TESTER("Tester",100),
 	UNKNOWN_SKILL("Unknown",0);
 	
+	//Variables for class
 	private String formalName;
 	private int rate;
 	
+	/**
+	* Constructor for enum, assigning rate and name
+	*/
 	private Skill(String formalName, int rate) {
 		this.formalName = formalName;
 		this.rate = rate;
