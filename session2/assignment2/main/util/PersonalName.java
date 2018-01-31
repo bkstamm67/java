@@ -88,7 +88,7 @@ public class PersonalName {
 	}
 
 	/**
-	 * Calculate the hash code.
+	 * Calculate the hash code - used eclipse to build 
 	 * @return the hash code value
 	 */
 	@Override
@@ -102,7 +102,7 @@ public class PersonalName {
 	}
 
 	/**
-	 * Compare names for equivalence.
+	 * Compare names for equivalence  - used eclipse to build 
 	 * @param other - the name to compare to
 	 * @return true if all the name elements have the same value
 	 */
