@@ -7,18 +7,19 @@ import org.junit.Test;
 import com.scg.util.PersonalName;
 
 /**
+ * Tests for the Consultant class.
  * @author Brian Stamm
- *
  */
 public class ConsultantTests {
 
+	//Variables used for testing
 	private String firstName = "Edward";
 	private String lastName = "Walls";
 	private String fullName = lastName + ", " + firstName;
 	private PersonalName name = new PersonalName(lastName,firstName);
 	
 	/**
-	 * 
+	 * Tests the constructor
 	 */
 	@Test
 	public void testConstructor() {
@@ -27,7 +28,7 @@ public class ConsultantTests {
 	}
 	
 	/**
-	 * 
+	 * Tests the toString() method
 	 */
 	@Test
 	public void testConsultantToString() {
