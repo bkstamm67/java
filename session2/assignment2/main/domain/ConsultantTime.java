@@ -5,7 +5,6 @@ import java.util.Formatter;
 
 /**
  * A consultants time, maintains date, skill, account and hours data.
- * NEED TO FINISH TOSTRING!
  * @author Brian Stamm
  *
  */
@@ -101,8 +100,8 @@ public class ConsultantTime {
 		return skillType;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public int hashCode() {
@@ -115,9 +114,6 @@ public class ConsultantTime {
 		return result;
 	}
 
-	/** (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	/**
 	 * {@inheritDoc}
 	 */
@@ -158,9 +154,6 @@ public class ConsultantTime {
 		ft.format("%-28s %2$tm/%2$td/%2$tY     %3$d    %4$s\n", account.getName(), date, hours, skillType);
 		ft.close();
 		return sb.toString();
-		//"-28%s %$tr / %2$td / %2$td / %2ty", account, date, hour, skill
-		// %2$tb  
-		//%2$tb %2$td, %2$tY\n
 	}
 	
 }
