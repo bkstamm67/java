@@ -151,6 +151,13 @@ public class TimeCard {
 		return sb.toString();
 	}
 	
+	/**
+	* Private method used to build either the Nonbillable or Billable section of
+	* the report
+	* @param bill - value used to determine if string consists of ConsultantTime that 
+	* is billable or not
+	* @return String value of ConsultantTime list
+	*/
 	private String buildTime(boolean bill) {
 		StringBuilder sb = new StringBuilder();
 		Formatter ft = new Formatter(sb);
@@ -161,25 +168,6 @@ public class TimeCard {
 		}
 		ft.close();
 		return sb.toString();
-		
-		/*
-		StringBuilder sb = new StringBuilder();
-		//Formatter ft = new Formatter(sb);
-		//List<ConsultantTime> tempList = this.getConsultingHours();
-		for(ConsultantTime ct: consultingHours) {
-		//for(ConsultantTime ct: tempList) {
-			if(ct.isBillable()) {//(Boolean.compare(ct.isBillable(),bill) == 0) {
-				//ft.format("%s  %tD %d %s\n", ct.getAccount().getName(), ct.getDate(),ct.getHours(),ct.getSkill().toString());
-				sb.append(ct.toString());
-			}
-			else {
-				sb.append(ct.toString());
-				//ft.format("%s  %tD %d %s\n", ct.getAccount().toString(),ct.getDate(),ct.getHours(),ct.getSkill().toString());
-			}
-		}
-		//ft.close();
-		return sb.toString();
-		*/
 	}
 
 }
