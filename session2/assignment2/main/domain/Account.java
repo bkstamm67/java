@@ -2,7 +2,6 @@ package com.scg.domain;
 
 /**
  * Interface all accounts must implement
- * DONE
  * @author Brian Stamm
  */
 public interface Account {
