@@ -4,7 +4,6 @@ import com.scg.util.PersonalName;
 
 /**
  * Encapsulates the information for a billable client account.
- * DONE
  * @author Brian Stamm
  *
  */
