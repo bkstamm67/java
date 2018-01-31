@@ -13,8 +13,8 @@ import org.junit.Test;
 import com.scg.util.PersonalName;
 
 /**
+ * Unit tests for TimeCard class
  * @author Brian Stamm
- *
  */
 public class TimeCardTests {
 
@@ -22,8 +22,10 @@ public class TimeCardTests {
 	private Consultant consultant;
 	private LocalDate weekStartingDay;
 	private List<ConsultantTime> consultingHours;
+	
 	//Used to create Consultant
 	private PersonalName testConsultantName; 
+	
 	//Used to create ConsultantTime
 	private ClientAccount testAccount;
 	private ConsultantTime testConsultantTimeBillable;
@@ -32,6 +34,9 @@ public class TimeCardTests {
 	private int billableHours;
 	private int nonBillableHours;
 	
+	/**
+	* Initialize all the variables for testing
+	*/
 	@Before
 	public void initialize() {
 		testConsultantName = new PersonalName("Rothfuss", "Patrick");
@@ -46,6 +51,9 @@ public class TimeCardTests {
 		testConsultantTimeNonBillable = new ConsultantTime(weekStartingDay,NonBillableAccount.VACATION,Skill.PROJECT_MANAGER,nonBillableHours);
 	}
 	
+	/**
+	* Tests the constructor
+	*/
 	@Test
 	public void testConstructor() {
 		TimeCard test = new TimeCard(consultant,weekStartingDay);
@@ -53,6 +61,10 @@ public class TimeCardTests {
 		assertEquals(test.getWeekStartingDay(),weekStartingDay);
 	}
 	
+	/**
+	* Tests addConsultantTime() method, checking by looking at the hours and 
+	* checking the list of <ConsultantTime> are present
+	*/
 	@Test
 	public void testAddConsultantTime() {
 		TimeCard test = new TimeCard(consultant,weekStartingDay);
@@ -67,6 +79,10 @@ public class TimeCardTests {
 		assertTrue(testList.contains(testConsultantTimeNonBillable));
 	}
 	
+	/**
+	* Tests getConsultingHours() method, first when first initialized does
+	* not have any values, and then that the list has all that are added.
+	*/
 	@Test
 	public void testGetConsultingHours() {
 		TimeCard test = new TimeCard(consultant,weekStartingDay);
@@ -81,12 +97,18 @@ public class TimeCardTests {
 		assertEquals(testListTwo,consultingHours);
 	}
 	
+	/**
+	* Tests getWeekStartingDay() method
+	*/
 	@Test
 	public void testGetWeekStartingDay() {
 		TimeCard test = new TimeCard(consultant,weekStartingDay);
 		assertEquals(test.getWeekStartingDay(),weekStartingDay);
 	}
 	
+	/**
+	* Tests getBillableHoursForClients is empty when searching for something not present
+	*/
 	@Test
 	public void testGetBillableHoursForClient_NoClient() {
 		TimeCard test = new TimeCard(consultant,weekStartingDay);
@@ -94,6 +116,9 @@ public class TimeCardTests {
 		assertTrue(testList.isEmpty());
 	}
 	
+	/**
+	* Tests getBillableHoursForClients returns something when present
+	*/
 	@Test
 	public void testGetBillableHoursForClient_ClientPresent() {
 		TimeCard test = new TimeCard(consultant,weekStartingDay);
@@ -102,6 +127,10 @@ public class TimeCardTests {
 		assertTrue(!testList.isEmpty());
 	}
 	
+	/**
+	* Tests the various getHours methods - getTotalBillableHours(), getTotalNonBillableHours(),
+	* and getTotalHours()
+	*/
 	@Test
 	public void testGetHours() {
 		TimeCard test = new TimeCard(consultant,weekStartingDay);
@@ -113,6 +142,9 @@ public class TimeCardTests {
 		assertEquals(test.getTotalHours(),billableHours+nonBillableHours);
 	}
 	
+	/**
+	* Tests toString() method
+	*/
 	@Test
 	public void testToString() {
 		StringBuilder sb = new StringBuilder();
@@ -124,6 +156,9 @@ public class TimeCardTests {
 		assertEquals(test.toString(),sb.toString());
 	}
 	
+	/**
+	* Tests toReportString(), uses buildReport() method to build mock report
+	*/
 	@Test
 	public void testToReportString() {
 		TimeCard test = new TimeCard(consultant,weekStartingDay);
@@ -131,6 +166,9 @@ public class TimeCardTests {
 		assertEquals(test.toReportString(),result);
 	}
 
+	/**
+	* A private method used to create a string that mocks what a report should look like
+	*/
 	private String buildReport() {
 		StringBuilder sb = new StringBuilder();
 		Formatter ft = new Formatter(sb);
