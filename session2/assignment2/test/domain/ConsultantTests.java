@@ -19,7 +19,7 @@ public class ConsultantTests {
 	private PersonalName name = new PersonalName(lastName,firstName);
 	
 	/**
-	 * Tests the constructor
+	 * Tests the constructor, and secondarily the getName() method
 	 */
 	@Test
 	public void testConstructor() {
