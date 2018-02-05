@@ -1,5 +1,8 @@
 package com.scg.domain;
 
+import java.util.Formatter;
+
+import com.scg.util.Address;
 import com.scg.util.PersonalName;
 
 /**
@@ -19,9 +22,23 @@ public final class ClientAccount implements Account{
 	 * @param contact  - Name of the contact person for this client.
 	 * @param address - Address of this client.
 	 */
-	public ClientAccount(final String name, PersonalName contact, Address address) {
+	public ClientAccount(final String name, PersonalName contact,Address address) {
 		this.contact = contact;
 		this.name = name;
+		this.address = address;
+	}
+	/**
+	 * Getter for property address.
+	 * @return value of property address.
+	 */
+	public Address getAddress() {
+		return address;
+	}
+	/**
+	 * Setter for property address
+	 * @param address - New value of property address.
+	 */
+	public void setAddress(Address address) {
 		this.address = address;
 	}
 	/**
@@ -59,26 +76,10 @@ public final class ClientAccount implements Account{
 	}
 	
 	/**
-	* Getter for property address.
-	* @return value of property address.
-	*/
-	public Address getAddress(){
-		return address;
-	}
-	
-	/**
-	* Setter for property address
-	* @param address - New value of property address.
-	*/
-	public void setAddress(Address address){
-		this.address = address;
-	}
-	
-	/**
 	* String representation for this Client.
 	* @return Formatted string of ClientAccount
 	*/
-	@override
+	@Override
 	public String toString(){
 		StringBuilder sb = new StringBuilder();
 		Formatter ft = new Formatter(sb);
@@ -86,5 +87,4 @@ public final class ClientAccount implements Account{
 		ft.close();
 		return sb.toString();
 	}
-	
 }

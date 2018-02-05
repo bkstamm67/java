@@ -88,7 +88,6 @@ public final class Invoice {
 	 * TimeCard and add them to the line items. Only those hours for the client 
 	 * and month unique to this invoice will be added.
 	 * @param timeCard - the TimeCard potentially containing line items for this Invoices client.
-
 	 */
 	public void extractLineItems(TimeCard timeCard) {
 		
