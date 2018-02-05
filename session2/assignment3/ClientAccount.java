@@ -11,15 +11,18 @@ public final class ClientAccount implements Account{
 	
 	private PersonalName contact;
 	private final String name;
+	private Address address;
 	
 	/**
 	 * Creates a new instance of ClientAccount
 	 * @param name - String with the name of the client.
 	 * @param contact  - Name of the contact person for this client.
+	 * @param address - Address of this client.
 	 */
-	public ClientAccount(final String name, PersonalName contact) {
+	public ClientAccount(final String name, PersonalName contact, Address address) {
 		this.contact = contact;
 		this.name = name;
+		this.address = address;
 	}
 	/**
 	 * Gets the contact for this account.
@@ -54,4 +57,34 @@ public final class ClientAccount implements Account{
 	public void setContact(PersonalName contact) {
 		this.contact = contact;
 	}
+	
+	/**
+	* Getter for property address.
+	* @return value of property address.
+	*/
+	public Address getAddress(){
+		return address;
+	}
+	
+	/**
+	* Setter for property address
+	* @param address - New value of property address.
+	*/
+	public void setAddress(Address address){
+		this.address = address;
+	}
+	
+	/**
+	* String representation for this Client.
+	* @return Formatted string of ClientAccount
+	*/
+	@override
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		Formatter ft = new Formatter(sb);
+		ft.format("%s\n%s\n%s", name,address.toString(),contact.toString());
+		ft.close();
+		return sb.toString();
+	}
+	
 }
