@@ -9,10 +9,11 @@ import java.time.LocalDate;
  */
 public final class InvoiceLineItem {
 	
-	private LocalDate date;
-	private Consultant consultant;
-	private Skill skill;
-	private int hours;
+	private final LocalDate date;
+	private final Consultant consultant;
+	private final Skill skill;
+	private final int hours;
+	private final int charge;
 	
 	/**
 	 * Construct an InvoiceLineItem.
@@ -21,11 +22,17 @@ public final class InvoiceLineItem {
 	 * @param skill- Skill for this line item.
 	 * @param hours- Hours for this line item.
 	 */
-	public InvoiceLineItem(java.time.LocalDate date, Consultant consultant, Skill skill, int hours) {
+	public InvoiceLineItem(LocalDate date, Consultant consultant, Skill skill, int hours) {
+		//check for hours greater than zero
+		if(hours <= 0) {
+			throw new IllegalArgumentException();
+			//throw error illegalArgementException
+		}
 		this.date = date;
 		this.consultant = consultant;
 		this.skill = skill;
 		this.hours = hours;	
+		charge = skill.getRate() * hours;
 	}
 	
 	/**
@@ -65,7 +72,7 @@ public final class InvoiceLineItem {
 	 * @return The charge.
 	 */
 	public int getCharge() {
-		return 1;
+		return charge;
 	}
 	/**
 	 * Print the date, consultant, skill, hours and charge for this line item.
@@ -74,5 +81,7 @@ public final class InvoiceLineItem {
 	@Override
 	public String toString() {
 		return "InvoiceLineItem";
+		//
+		//LINEFORMAT = "%11$"
 	}
 }

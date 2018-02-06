@@ -38,7 +38,8 @@ public final class InvoiceHeader {
 	 */
 	@Override
 	public String toString(){
-		return "InvoiceHeader string";
+		//Double check
+		return String.format("%s%n%s%n", businessName,businessAddress,client.toString());
 	}
 	
 }

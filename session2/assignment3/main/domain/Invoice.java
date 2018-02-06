@@ -1,8 +1,11 @@
 package com.scg.domain;
 
-import java.awt.List;
+import java.util.List;
+import java.util.Properties;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Invoice encapsulates the attributes and behavior to create client 
@@ -12,12 +15,23 @@ import java.util.ArrayList;
  * @author Brian Stamm
  */
 public final class Invoice {
+	//static variables here
+	
+	//static up here
+	static {
+		final Properties invoiceProperties = new Properties();
+		try(InputStream in = Invoice.class.getResourceAsStream("/invoice.properties")){
+			
+		}
+		catch()
+	}
+	
 	
 	private int invoiceYear;
 	private ClientAccount client;
 	private java.time.Month invoiceMonth;
 	private LocalDate startDate;
-	private ArrayList<InvoiceLineItem> lineItemList;
+	List<InvoiceLineItem> lineItemList;
 	
 	/**
 	 * Construct an Invoice for a client. The time period is set from the 
@@ -28,9 +42,12 @@ public final class Invoice {
 	 */
 	public Invoice(ClientAccount client, java.time.Month invoiceMonth, int invoiceYear) {
 		this.invoiceYear = invoiceYear;
+		//invoice date = now
+		//start date is first of month of year
+		
 		this.client = client;
 		this.invoiceMonth = invoiceMonth;
-		this.lineItemList = new ArrayList<InvoiceLineItem>();
+		this.lineItemList = new ArrayList<>();
 		
 	}
 	
@@ -49,6 +66,8 @@ public final class Invoice {
 	 */
 	public java.time.Month getInvoiceMonth(){
 		return invoiceMonth;
+		//return startDate.getMonth()
+		
 	}
 	
 	/**
@@ -81,6 +100,7 @@ public final class Invoice {
 	 */
 	public void addLineItem(InvoiceLineItem lineItem) {
 		lineItemList.add(lineItem);
+		//then add hours and charges
 	}
 	
 	/**
@@ -90,6 +110,7 @@ public final class Invoice {
 	 * @param timeCard - the TimeCard potentially containing line items for this Invoices client.
 	 */
 	public void extractLineItems(TimeCard timeCard) {
+		//
 		
 	}
 	
