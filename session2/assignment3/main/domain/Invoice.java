@@ -196,8 +196,8 @@ public final class Invoice {
 					ft.format("%s", header);
 				}
 			}
+			ft.format("Total:  %d $%,.2f\n",totalHours, totalCharges);
 			ft.format("%s", footer);
-			//Summary page.
 			ft.close();
 			
 			return sb.toString();
