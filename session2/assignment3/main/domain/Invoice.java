@@ -27,11 +27,13 @@ public final class Invoice {
 	}
 	
 	
-	private int invoiceYear;
+	//private int invoiceYear;
 	private ClientAccount client;
-	private java.time.Month invoiceMonth;
+	//private java.time.Month invoiceMonth;
 	private LocalDate startDate;
 	List<InvoiceLineItem> lineItemList;
+	private int totalHours;
+	private int totalCharges;
 	
 	/**
 	 * Construct an Invoice for a client. The time period is set from the 
@@ -41,14 +43,15 @@ public final class Invoice {
 	 * @param invoiceYear - Year for which this Invoice is being created.
 	 */
 	public Invoice(ClientAccount client, java.time.Month invoiceMonth, int invoiceYear) {
-		this.invoiceYear = invoiceYear;
+		//this.invoiceYear = invoiceYear;
 		//invoice date = now
 		//start date is first of month of year
-		
+		startDate = LocalDate.of(invoiceYear,invoiceMonth,1);
 		this.client = client;
-		this.invoiceMonth = invoiceMonth;
+		//this.invoiceMonth = invoiceMonth;
 		this.lineItemList = new ArrayList<>();
-		
+		totalHours = 0;
+		totalCharges = 0;
 	}
 	
 	/**
@@ -65,9 +68,8 @@ public final class Invoice {
 	 * @return the invoice month number.
 	 */
 	public java.time.Month getInvoiceMonth(){
-		return invoiceMonth;
-		//return startDate.getMonth()
-		
+		//return invoiceMonth;
+		return startDate.getMonth()
 	}
 	
 	/**
@@ -83,7 +85,7 @@ public final class Invoice {
 	 * @return Total hours.
 	 */
 	public int getTotalHours() {
-		return 1;
+		return totalHours;
 	}
 	
 	/**
@@ -91,7 +93,7 @@ public final class Invoice {
 	 * @return Total charges.
 	 */
 	public int getTotalCharges() {
-		return 1;
+		return totalCharges;
 	}
 	
 	/**
@@ -101,6 +103,8 @@ public final class Invoice {
 	public void addLineItem(InvoiceLineItem lineItem) {
 		lineItemList.add(lineItem);
 		//then add hours and charges
+		totalCharges += lineItem.getCharge();
+		totalHours += lineItem.getHours();
 	}
 	
 	/**
@@ -110,7 +114,13 @@ public final class Invoice {
 	 * @param timeCard - the TimeCard potentially containing line items for this Invoices client.
 	 */
 	public void extractLineItems(TimeCard timeCard) {
-		//
+		List<ConsultantTime> billableList = timecard.getBillableHoursForClient(client.getName());
+		for(ConsultantTime currentConsultant : billableList){
+			LocalDate currentDate = currentConsultant.getDate();
+			if(currentDate == startDate){
+				InvoiceLineItem newLineItem = new InvoiceLineItem(currentDate, timeCard.getConsultant(),currentConsultant.getSkill(),currentConsultant.gethours());
+				addLineItem(newLineItem);
+		}
 		
 	}
 	
