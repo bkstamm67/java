@@ -193,6 +193,7 @@ public final class Invoice {
 				itemCount++;
 				if(itemCount%5 == 0){
 					ft.format("%s", footer);
+					footer.incrementPageNumber();
 					ft.format("%s", header);
 				}
 			}
