@@ -35,7 +35,7 @@ public final class InvoiceFooter {
 		StringBuilder sb = new StringBuilder();
 		Formatter ft = new Formatter(sb);
 		//(%s%n%s%-69s Page: %3d%n%s%n", businessName, pageNumber, pageBreak);
-		ft.format("%s\n%s\nPage Number: %s\n", dashes,businessName,pageNumber);
+		ft.format("%s\n%s\nPage Number: %s\n", businessName,pageNumber,dashes);
 		ft.close();
 	    return sb.toString();
 	}
