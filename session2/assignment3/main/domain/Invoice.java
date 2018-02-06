@@ -149,7 +149,18 @@ public final class Invoice {
 	 */
 	@Override
 	public String toString() {
-		return "hello";
+		//consulting newline Invoice For: buz newline, invoice for, current date;
+		/*
+		StringBuilder sb = new StringBuilder();
+		Formatter ft = new Formatter(sb);
+		ft.format("%s/n%s/n%s, %s %s/n",businessName,businessStreet,businessCity,businessState,businessZipCode);
+		ft.format("Invoice for:\n");
+		ft.format("%s\n",client.toString());
+		ft.format("Invoice For Month of:  ");
+		*/
+		String answer = toReportString();
+		return answer;
+		
 	}
 
 	/**
@@ -158,7 +169,26 @@ public final class Invoice {
 	 * @return The formatted invoice as a string.
 	 */
 	public String toReportString() {
-		return "Another hello.";
+		StringBuilder sb = new StringBuilder();
+		Formatter ft = new Formatter(sb);
+		
+		InvoiceHeader header = new InvoiceHeader();
+		InvoiceFooter footer = new InvoiceFooter();
+		
+		int itemCount = 1;
+		for(lineItem : lineItemList){
+			ft.format("%s", lineItem.toString());
+			itemCount++;
+			if(itemCount%5 == 0){
+				ft.format("%s", footer);
+				ft.format("%s", header);
+			}
+		}
+		ft.format("%s", footer);
+		//Summary page.
+		ft.close();
+		
+		return sb.toString();
 	}
 
 }
