@@ -16,14 +16,33 @@ import java.util.Collections;
  */
 public final class Invoice {
 	//static variables here
-	
+	private final String PROP_LOCATION = "/invoice.properties";
+	private final String BIZ_NAME = "business.name";
+	private final String BIZ_STREET = "business.street";
+	private final String BIZ_CITY = "business.city";
+	private final String BIZ_STATE = "business.state";
+	private final String BIZ_ZIP_CODE = "business.zip";
+	private final String NA = "n/a";
+	//private strings to be built from these -
+	private String businessName;
+	private String businessStreet;
+	private String businessCity;
+	private String businessState;
+	private String businessZipCode;
 	//static up here
 	static {
 		final Properties invoiceProperties = new Properties();
-		try(InputStream in = Invoice.class.getResourceAsStream("/invoice.properties")){
-			
+		InputStream in = Invoice.class.getResourceAsStream(PROP_LOCATION)
+		try(invoiceProperties.load(in)){
+			businessName = invoiceProperties.getProperties(BIZ_NAME,NA);
+			businessStreet = invoiceProperties.getProperties(BIZ_STREET,NA);
+			businessCity = invoiceProperties.getProperties(BIZ_CITY,NA);
+			businessState = invoiceProperties.getProperties(BIZ_STATE,NA);
+			businessZipCode = invoiceProperties.getProperties(BIZ_ZIP_CODE,NA);
 		}
-		catch()
+		catch(IOException e){
+			System.err.println("Caught IOException: " + e.getMessage());
+		}
 	}
 	
 	
