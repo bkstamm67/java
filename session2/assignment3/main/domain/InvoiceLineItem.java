@@ -80,8 +80,12 @@ public final class InvoiceLineItem {
 	 */
 	@Override
 	public String toString() {
-		StringBuilder sb = 
-		return "InvoiceLineItem";
+		StringBuilder sb = new StringBuilder();
+		Formatter ft = new Formatter(sb);
+		ft.format("%1$tm/%1$td/%1$tY  %2$s %3$s %4$d $%5$,.2f/n", date, consultant.toString(),skill.toString(),hours,charge);
+		ft.close();
+		return sb.toString();
+		//return "InvoiceLineItem";
 		//
 		//LINEFORMAT = "%11$"
 	}
