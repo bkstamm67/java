@@ -80,6 +80,7 @@ public final class InvoiceLineItem {
 	 */
 	@Override
 	public String toString() {
+		StringBuilder sb = 
 		return "InvoiceLineItem";
 		//
 		//LINEFORMAT = "%11$"

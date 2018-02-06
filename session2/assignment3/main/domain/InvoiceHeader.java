@@ -1,6 +1,7 @@
 package com.scg.domain;
 
 import java.time.LocalDate;
+import java.util.Formatter;
 
 import com.scg.util.Address;
 
@@ -38,8 +39,13 @@ public final class InvoiceHeader {
 	 */
 	@Override
 	public String toString(){
-		//Double check
-		return String.format("%s%n%s%n", businessName,businessAddress,client.toString());
+		StringBuilder sb = new StringBuilder();
+		Formatter ft = new Formatter(sb);
+		ft.format("%s%n%s%n%n%s%n", businessName,businessAddress,client.toString());
+		ft.format("Invoice For the Month of:  %tB %d\n", invoiceMonth.getMonth(), invoiceMonth.getYear());
+		//ft.format("Invoice Date:  %tB %d\n", invoiceDate.getMonth(), invoiceDate.getYear());
+		ft.close();
+		return sb.toString();
 	}
 	
 }
