@@ -12,6 +12,7 @@ public final class Address {
 	private final String city;
 	private StateCode state;
 	private final String postalCode;
+	
 	/**
 	 * Construct an Address.
 	 * @param streetNumber - the street number.
@@ -49,7 +50,6 @@ public final class Address {
 	public StateCode getState(){
 		return state;
 	}
-	
 	
 	/**
 	 * Gets the postal code for this address.
