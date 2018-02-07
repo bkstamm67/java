@@ -4,8 +4,15 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+* This is the JUnit tests for StateCodes.java
+* @author Brian Stamm
+*/
 public class StateCodeTest {
 
+	/**
+	* Basic test set
+	*/
 	@Test
 	public void testStateCodes() {
 
