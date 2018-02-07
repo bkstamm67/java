@@ -15,8 +15,5 @@ public enum StateCode {
 	NY,
 	/** WASHINGTON */
 	WA;
-	///** ALABAMA*/
-	//SD,
-
 
 }
