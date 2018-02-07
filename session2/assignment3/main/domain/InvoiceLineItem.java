@@ -1,6 +1,7 @@
 package com.scg.domain;
 
 import java.time.LocalDate;
+import java.util.Formatter;
 
 /**
  * Encapsulates a single billable item to be included in an invoice.
@@ -82,7 +83,7 @@ public final class InvoiceLineItem {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		Formatter ft = new Formatter(sb);
-		ft.format("%1$tm/%1$td/%1$tY  %2$s %3$s %4$d $%5$,.2f/n", date, consultant.toString(),skill.toString(),hours,charge);
+		ft.format("%1$tm/%1$td/%1$tY  %2$s\t%3$s\t\t%4$d\t$%5$,.2f\n", date, consultant.toString(),skill.toString(),hours,(double)charge);
 		ft.close();
 		return sb.toString();
 		//return "InvoiceLineItem";

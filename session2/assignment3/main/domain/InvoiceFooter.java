@@ -9,7 +9,7 @@ import java.util.Formatter;
 public final class InvoiceFooter {
 
 	private final String businessName;
-	private final String dashes = "===============================";
+	private final String dashes = "=========================================================================\n";
 	private int pageNumber = 1;
 	/**
 	 * Construct an InvoiceFooter.
@@ -35,7 +35,7 @@ public final class InvoiceFooter {
 		StringBuilder sb = new StringBuilder();
 		Formatter ft = new Formatter(sb);
 		//(%s%n%s%-69s Page: %3d%n%s%n", businessName, pageNumber, pageBreak);
-		ft.format("%s\n%s\nPage Number: %s\n", businessName,pageNumber,dashes);
+		ft.format("%s\nPage Number: %d\n%s\n", businessName,pageNumber,dashes);
 		ft.close();
 	    return sb.toString();
 	}
