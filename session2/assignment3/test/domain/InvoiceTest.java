@@ -15,6 +15,11 @@ public class InvoiceTest {
 	private List<Consultant> testConsultants;
 	private List<TimeCard> testTimeCards;
 	LocalDate aDate;
+	private int testHours;
+	private int testCharges;
+	private Skill testSkill;
+	private String businessName;
+	private String testString;
 
 	@Before
 	public void setUp() {
@@ -22,7 +27,27 @@ public class InvoiceTest {
 		testConsultants = new ArrayList<>();
 		testTimeCards = new ArrayList<>();
 		ListFactory.populateLists(testClients,testConsultants,testTimeCards);
-		aDate = LocalDate.of(2009,1,1);
+		aDate = LocalDate.of(2006,2,1);
+		testSkill = Skill.PROJECT_MANAGER;
+		testHours = 5;
+		testCharges = testHours * testSkill.getRate();
+		
+		private final static String PROP_LOCATION = "/invoice.properties";
+		final Properties invoiceProperties = new Properties();
+
+		try(InputStream in = Invoice.class.getResourceAsStream(PROP_LOCATION)){
+			invoiceProperties.load(in);
+			businessName = invoiceProperties.getProperty(BIZ_NAME,NA);
+		}
+		catch(IOException e){
+			System.err.println("Caught IOException: " + e.getMessage());
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		Formatter ft = new Formatter(sb);
+		ft.format("Business: %s/n Start Date: %2$tB %2$td, %2$tY/n",businessName,startDate);
+		ft.close();
+		testString = sb.toString();
 	}
 
 	@Test
@@ -38,10 +63,21 @@ public class InvoiceTest {
 	
 	@Test
 	public void testAddLineItem(){
+		InvoiceLineItem testLineItem = new InvoiceLineItem(aDate,testConsultants.get(0),testSkill,testHours);
+		Invoice testInvoice = new Invoice(testClients.get(0),aDate.getMonth(),aDate.getYear());
+		
+		assertEquals(testInvoice.getTotalHours(),testHours);
+		assertEquals(testInvoice.getTotalCharges(),testCharges);
 	}
 	
-	//test extractLineItems
-	//test toString
+
+	@Test
+	public void testToString(){
+		Invoice testInvoice = new Invoice(testClients.get(0),aDate.getMonth(),aDate.getYear());
+
+		assertEquals(testInvoice.toString(),testString);
+	}
+	
 	//test toReportString
 
 }
