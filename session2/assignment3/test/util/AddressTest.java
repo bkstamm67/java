@@ -6,11 +6,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * 
+ * JUnit tests for Address.java
  * @author Brian Stamm
  */
 public class AddressTest {
 	
+	//variables for testing
 	private String streetNumber;
 	private String city;
 	private StateCode state;
@@ -28,9 +29,11 @@ public class AddressTest {
 		postalCode = "98504";
 		
 		testString = String.format("%s%n%s, %s %s", streetNumber, city, state, postalCode);
-		
 	}
 
+	/**
+	* Test the constructor & getters
+	*/
 	@Test
 	public void testConstructor() {
 		Address testAddress = new Address(streetNumber, city, state, postalCode);
@@ -40,6 +43,9 @@ public class AddressTest {
 		assertEquals(testAddress.getPostalCode(),postalCode);
 	}
 	
+	/**
+	* Test the toString method
+	*/
 	@Test
 	public void testToString() {
 		Address testAddress = new Address(streetNumber, city, state, postalCode);
