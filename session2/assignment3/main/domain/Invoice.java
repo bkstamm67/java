@@ -20,7 +20,7 @@ import java.util.Formatter;
  * @author Brian Stamm
  */
 public final class Invoice {
-	//static variables here
+	//static final variables used for lookup
 	private final static String PROP_LOCATION = "/invoice.properties";
 	private final static String BIZ_NAME = "business.name";
 	private final static String BIZ_STREET = "business.street";
@@ -28,13 +28,20 @@ public final class Invoice {
 	private final static String BIZ_STATE = "business.state";
 	private final static String BIZ_ZIP_CODE = "business.zip";
 	private final static String NA = "n/a";
-	//private strings to be built from these -
+	//private strings
 	private static String businessName;
 	private static String businessStreet;
 	private static String businessCity;
 	private static String businessState;
 	private static String businessZipCode;
-	//static up here
+	//variables used for tests
+	private ClientAccount client;
+	private LocalDate startDate;
+	List<InvoiceLineItem> lineItemList;
+	private int totalHours;
+	private int totalCharges;
+	
+	//static block used to get business info
 	static {
 		final Properties invoiceProperties = new Properties();
 
@@ -50,15 +57,6 @@ public final class Invoice {
 			System.err.println("Caught IOException: " + e.getMessage());
 		}
 	}
-
-
-	//private int invoiceYear;
-	private ClientAccount client;
-	//private java.time.Month invoiceMonth;
-	private LocalDate startDate;
-	List<InvoiceLineItem> lineItemList;
-	private int totalHours;
-	private int totalCharges;
 
 	/**
 	 * Construct an Invoice for a client. The time period is set from the 
