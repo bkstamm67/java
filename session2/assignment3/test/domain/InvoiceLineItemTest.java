@@ -11,11 +11,12 @@ import org.junit.Test;
 import com.scg.util.PersonalName;
 
 /**
+ * Tests the InvoiceLineItem.java
  * @author Brian Stamm
- *
  */
 public class InvoiceLineItemTest {
 
+	//variables used for testing
 	private LocalDate currentDate;
 	private Consultant testConsultant;
 	private Skill testSkill;
@@ -23,6 +24,9 @@ public class InvoiceLineItemTest {
 	private int testCharge;
 	private String testString;
 	
+	/**
+	* Set up the variables used for testing
+	*/
 	@Before
 	public void setUp(){
 		currentDate = LocalDate.now();
@@ -38,12 +42,18 @@ public class InvoiceLineItemTest {
 		testString = sb.toString();
 	}
 
+	/**
+	* Tests constructor throws error with invalid hour variable
+	*/
 	@SuppressWarnings("unused")
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorNegativeHours(){
 		InvoiceLineItem testLineItem = new InvoiceLineItem(currentDate,testConsultant,testSkill,-2);
 	}
 	
+	/**
+	* Tests the constructor and getter methods
+	*/
 	@Test
 	public void testConstructor() {
 		InvoiceLineItem testLineItem = new InvoiceLineItem(currentDate,testConsultant,testSkill,testHours);
@@ -55,6 +65,9 @@ public class InvoiceLineItemTest {
 		assertEquals(testLineItem.getCharge(),testCharge);
 	}
 	
+	/**
+	* Tests the toString method
+	*/
 	@Test
 	public void testToString() {
 		InvoiceLineItem testLineItem = new InvoiceLineItem(currentDate,testConsultant,testSkill,testHours);
