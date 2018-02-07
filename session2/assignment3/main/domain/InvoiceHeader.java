@@ -41,7 +41,6 @@ public final class InvoiceHeader {
 		Formatter ft = new Formatter(sb);
 		ft.format("%s%n%s%n%nInvoice For:%n%s%n%n", businessName,businessAddress,client.toString());
 		ft.format("Invoice For the Month of:  %tB %d\n", invoiceMonth.getMonth(), invoiceMonth.getYear());
-		//ft.format("Invoice Date:  %tB %d\n", invoiceDate.getMonth(), invoiceDate.getYear());
 		ft.close();
 		return sb.toString();
 	}
