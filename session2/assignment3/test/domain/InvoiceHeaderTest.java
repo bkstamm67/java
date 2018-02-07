@@ -10,17 +10,37 @@ import org.junit.Test;
  *
  */
 public class InvoiceHeaderTest {
-
+	
+	private Address testAddress;
+	private PersonalName testName;
+	private String testBusinessName;
+	private ClientAccount testAccount;
+	private LocalDate currentDate;
+	private String testString;
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
+		testAddress = new Address("1616 Index Ct.", "Redmond", StateCode.WA, "98055");
+		testName = new PersonalName("Coyote", "Wiley");
+		testBusinessName = "Acme Industries";
+		testAccount = new ClientAccount(testBusinessName, testName,testAddress);
+		currentDate = LocalDate.now();
+		
+		StringBuilder sb = new StringBuilder();
+		Formatter ft = new Formatter(sb);
+		ft.format("%s%n%s%n%nInvoice For:%n%s%n%n", testBusinessName,testAddress,testAccount.toString());
+		ft.format("Invoice For the Month of:  %tB %d\n", currentDate.getMonth(), currentDate.getYear());
+		ft.close();
+		testString = sb.toString();
 	}
 
 	@Test
-	public void test() {
-		assertEquals(1,1);
+	public void testInvoiceHeader() {
+		InvoiceHeader header = new InvoiceHeader(testBusinessName,testAddress,testAccount,currentDate,currentDate);
+		assertEquals(header.toString(),testString);
 	}
 
 }
