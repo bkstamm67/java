@@ -16,11 +16,12 @@ import org.junit.Test;
 import com.scg.util.ListFactory;
 
 /**
+ * Tests the Invoice.java
  * @author Brian Stamm
- *
  */
 public class InvoiceTest {
 
+	//variables used for testing
 	private List<ClientAccount> testClients;
 	private List<Consultant> testConsultants;
 	private List<TimeCard> testTimeCards;
@@ -32,6 +33,9 @@ public class InvoiceTest {
 	private String testString;
 	private String testInvoiceReport;
 
+	/**
+	* Set up variables for testing
+	*/
 	@Before
 	public void setUp() {
 		testClients = new ArrayList<>();
@@ -63,6 +67,9 @@ public class InvoiceTest {
 		
 	}
 
+	/**
+	* Tests the constructor and getters
+	*/
 	@Test
 	public void testConstructor() {
 		Invoice testInvoice = new Invoice(testClients.get(0),aDate.getMonth(),aDate.getYear());
@@ -74,6 +81,9 @@ public class InvoiceTest {
 		assertEquals(testInvoice.getTotalCharges(),0);
 	}
 	
+	/**
+	* Test the addLineItem() method
+	*/
 	@Test
 	public void testAddLineItem(){
 		InvoiceLineItem testLineItem = new InvoiceLineItem(aDate,testConsultants.get(0),testSkill,testHours);
@@ -84,7 +94,9 @@ public class InvoiceTest {
 		assertEquals(testInvoice.getTotalCharges(),testCharges);
 	}
 	
-
+	/**
+	* Tests the toString() method
+	*/
 	@Test
 	public void testToString(){
 		Invoice testInvoice = new Invoice(testClients.get(0),aDate.getMonth(),aDate.getYear());
@@ -92,6 +104,9 @@ public class InvoiceTest {
 		assertEquals(testInvoice.toString(),testString);
 	}
 	
+	/**
+	* Tests the toReportString() method
+	*/
 	@Test
 	public void testToReportString(){
 		Invoice testInvoice = new Invoice(testClients.get(0),aDate.getMonth(),aDate.getYear());
@@ -99,6 +114,9 @@ public class InvoiceTest {
 		assertEquals(testInvoice.toReportString(),testInvoiceReport);
 	}
 	
+	/**
+	* Helper method used by testToReportString to build a String report
+	*/
 	private String buildInvoice() {
 		StringBuilder sb = new StringBuilder();
 		Formatter ft = new Formatter(sb);
