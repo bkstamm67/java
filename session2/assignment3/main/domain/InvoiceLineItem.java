@@ -6,7 +6,6 @@ import java.util.Formatter;
 /**
  * Encapsulates a single billable item to be included in an invoice.
  * @author Brian Stamm
- *
  */
 public final class InvoiceLineItem {
 	
@@ -27,7 +26,6 @@ public final class InvoiceLineItem {
 		//check for hours greater than zero
 		if(hours <= 0) {
 			throw new IllegalArgumentException();
-			//throw error illegalArgementException
 		}
 		this.date = date;
 		this.consultant = consultant;
@@ -75,6 +73,7 @@ public final class InvoiceLineItem {
 	public int getCharge() {
 		return charge;
 	}
+	
 	/**
 	 * Print the date, consultant, skill, hours and charge for this line item.
 	 * @return Formatted string.
@@ -86,8 +85,5 @@ public final class InvoiceLineItem {
 		ft.format("%1$tm/%1$td/%1$tY  %2$s\t%3$s\t\t%4$d\t$%5$,.2f\n", date, consultant.toString(),skill.toString(),hours,(double)charge);
 		ft.close();
 		return sb.toString();
-		//return "InvoiceLineItem";
-		//
-		//LINEFORMAT = "%11$"
 	}
 }
