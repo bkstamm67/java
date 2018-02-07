@@ -13,11 +13,12 @@ import com.scg.util.PersonalName;
 import com.scg.util.StateCode;
 
 /**
+ * JUnit tests for the InvoiceHeader.java
  * @author Brian Stamm
- *
  */
 public class InvoiceHeaderTest {
 
+	//private variables for testing
 	private Address testAddress;
 	private PersonalName testName;
 	private String testBusinessName;
@@ -26,7 +27,7 @@ public class InvoiceHeaderTest {
 	private String testString;
 	
 	/**
-	 * @throws java.lang.Exception
+	 * Set up values for testing used in test
 	 */
 	@Before
 	public void setUp() {
@@ -44,6 +45,9 @@ public class InvoiceHeaderTest {
 		testString = sb.toString();
 	}
 
+	/**
+	* Tests the constructor and toString method
+	*/
 	@Test
 	public void testInvoiceHeader() {
 		InvoiceHeader header = new InvoiceHeader(testBusinessName,testAddress,testAccount,currentDate,currentDate);
