@@ -2,15 +2,22 @@ package com.scg.domain;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
+import java.util.Formatter;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import com.scg.util.Address;
+import com.scg.util.PersonalName;
+import com.scg.util.StateCode;
 
 /**
  * @author Brian Stamm
  *
  */
 public class InvoiceHeaderTest {
-	
+
 	private Address testAddress;
 	private PersonalName testName;
 	private String testBusinessName;

@@ -15,6 +15,7 @@ public class AddressTest {
 	private String city;
 	private StateCode state;
 	private String postalCode;
+	private String testString;
 	
 	/**
 	* Initialize all the variables for testing
@@ -26,6 +27,8 @@ public class AddressTest {
 		state = StateCode.WA;
 		postalCode = "98504";
 		
+		testString = String.format("%s%n%s, %s %s", streetNumber, city, state, postalCode);
+		
 	}
 
 	@Test
@@ -35,6 +38,12 @@ public class AddressTest {
 		assertEquals(testAddress.getCity(),city);
 		assertEquals(testAddress.getState(),state);
 		assertEquals(testAddress.getPostalCode(),postalCode);
+	}
+	
+	@Test
+	public void testToString() {
+		Address testAddress = new Address(streetNumber, city, state, postalCode);
+		assertEquals(testAddress.toString(),testString);
 	}
 
 }

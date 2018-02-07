@@ -2,8 +2,13 @@ package com.scg.domain;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
+import java.util.Formatter;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import com.scg.util.PersonalName;
 
 /**
  * @author Brian Stamm
@@ -21,7 +26,7 @@ public class InvoiceLineItemTest {
 	@Before
 	public void setUp(){
 		currentDate = LocalDate.now();
-		testConsultant = new Consultant(new PersonalName("Miklasz","Bernie")));
+		testConsultant = new Consultant(new PersonalName("Miklasz","Bernie"));
 		testSkill = Skill.PROJECT_MANAGER;
 		testHours = 13;
 		testCharge = testHours * testSkill.getRate();
@@ -56,6 +61,5 @@ public class InvoiceLineItemTest {
 		
 		assertEquals(testLineItem.toString(),testString);
 	}
-
 
 }

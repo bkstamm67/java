@@ -8,8 +8,9 @@ public class StateCodeTest {
 
 	@Test
 	public void testStateCodes() {
-			
-		assertEquals(StateCode.CA.toString(),"CA");
+
+		StateCode california = StateCode.CA;
+		assertEquals(StateCode.CA,california);
 		assertEquals(StateCode.DC.name(),"DC");
 		assertEquals(StateCode.MO.toString(),"MO");
 		assertEquals(StateCode.NY.name(),"NY");

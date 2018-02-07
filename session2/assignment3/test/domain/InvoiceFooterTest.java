@@ -2,7 +2,8 @@ package com.scg.domain;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
+import java.util.Formatter;
+
 import org.junit.Test;
 
 /**
@@ -10,7 +11,7 @@ import org.junit.Test;
  *
  */
 public class InvoiceFooterTest {
-	
+
 	private String testDashes = "=========================================================================\n";
 	private String testBusiness = "Expeditors";
 
