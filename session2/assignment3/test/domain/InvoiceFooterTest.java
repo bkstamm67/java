@@ -7,14 +7,18 @@ import java.util.Formatter;
 import org.junit.Test;
 
 /**
+ * Test the InvoiceFooter.java
  * @author Brian Stamm
- *
  */
 public class InvoiceFooterTest {
 
+	//private variables
 	private String testDashes = "=========================================================================\n";
 	private String testBusiness = "Expeditors";
 
+	/**
+	* Tests the constructor and toString method
+	*/
 	@Test
 	public void testConstructorToString() {
 		StringBuilder sb = new StringBuilder();
@@ -27,6 +31,9 @@ public class InvoiceFooterTest {
 		assertEquals(footer.toString(),testString);
 	}
 	
+	/**
+	* Tests making sure the increment of page works
+	*/
 	@Test
 	public void testIncrementPageNumber(){
 		StringBuilder sb = new StringBuilder();
