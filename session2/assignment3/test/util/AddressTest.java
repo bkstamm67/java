@@ -32,7 +32,7 @@ public class AddressTest {
 	}
 
 	/**
-	* Test the constructor & getters
+	* Test the constructor and getters
 	*/
 	@Test
 	public void testConstructor() {
