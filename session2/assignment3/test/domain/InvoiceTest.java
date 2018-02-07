@@ -78,6 +78,11 @@ public class InvoiceTest {
 		assertEquals(testInvoice.toString(),testString);
 	}
 	
-	//test toReportString
+	@Test
+	public void testToReportString(){
+		Invoice testInvoice = new Invoice(testClients.get(0),aDate.getMonth(),aDate.getYear());
+
+		assertEquals(testInvoice.toReportString(),"");
+	}
 
 }
