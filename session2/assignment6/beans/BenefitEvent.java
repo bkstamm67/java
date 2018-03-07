@@ -5,7 +5,6 @@ import java.util.EventObject;
 import java.util.Optional;
 
 import com.scg.domain.Consultant;
-import com.scg.util.PersonalName;
 
 /**
  * Event used to notify listeners of a Consultant's enrollment or cancellation of 
@@ -19,12 +18,6 @@ public final class BenefitEvent extends EventObject{
 	transient private Optional <Boolean> enrolledInDental;
 	private final Consultant consultant;
 	private final LocalDate effectiveDate;
-
-	public BenefitEvent(Object source) {
-		super(source);
-		// TODO Auto-generated constructor stub
-
-	}
 	
 	/**
 	 * Creates a medical enrollment event.
@@ -33,7 +26,7 @@ public final class BenefitEvent extends EventObject{
 	 * @param effectiveDate - effective date of enrollment
 	 * @return a new event object
 	 */
-	public static BenefitEvent enrollMedical(Object source,Consultant consultant,java.time.LocalDate effectiveDate) {
+	public static BenefitEvent enrollMedical(Object source,Consultant consultant,LocalDate effectiveDate) {
 		return new BenefitEvent(source,consultant, effectiveDate,Optional.of(true),Optional.empty());
 	}
 	
@@ -44,9 +37,7 @@ public final class BenefitEvent extends EventObject{
 	 * @param effectiveDate - effective date of enrollment
 	 * @return
 	 */
-	public static BenefitEvent cancelMedical(Object source,
-            Consultant consultant,
-            java.time.LocalDate effectiveDate) {
+	public static BenefitEvent cancelMedical(Object source,Consultant consultant,LocalDate effectiveDate) {
 		return new BenefitEvent(source,consultant, effectiveDate,Optional.of(false),Optional.empty());
 	}
 	
@@ -57,9 +48,7 @@ public final class BenefitEvent extends EventObject{
 	 * @param effectiveDate - effective date of enrollment
 	 * @return
 	 */
-	public static BenefitEvent enrollDental(Object source,
-            Consultant consultant,
-            java.time.LocalDate effectiveDate) {
+	public static BenefitEvent enrollDental(Object source,Consultant consultant,LocalDate effectiveDate) {
 		return new BenefitEvent(source,consultant, effectiveDate,Optional.empty(),Optional.of(true));
 	}
 	
@@ -70,19 +59,16 @@ public final class BenefitEvent extends EventObject{
 	 * @param effectiveDate
 	 * @return
 	 */
-	public static BenefitEvent cancelDental(Object source,
-            Consultant consultant,
-            java.time.LocalDate effectiveDate) {
+	public static BenefitEvent cancelDental(Object source,Consultant consultant,LocalDate effectiveDate) {
 		return new BenefitEvent(source,consultant, effectiveDate,Optional.empty(),Optional.of(false));
 	}
 	
-	private BenefitEvent (Object source,
-            Consultant consultant,
-            java.time.LocalDate effectiveDate,Optional<Boolean> enrolledInMedical) {
+	private BenefitEvent (Object source,Consultant consultant,LocalDate effectiveDate,Optional<Boolean> enrolledInMedical,Optional<Boolean> enrolledInDental) {
 		super(source);
 		this.consultant = consultant;
 		this.effectiveDate = effectiveDate;
 		this.enrolledInMedical = enrolledInMedical;
+		this.enrolledInDental = enrolledInDental;
 	}
 	
 	/**
@@ -98,7 +84,7 @@ public final class BenefitEvent extends EventObject{
 	 * @return true enrolled event, false if cancellation, empty if not a dental enrollment event.
 	 */
 	public Optional<Boolean> dentalStatus(){
-		return;
+		return enrolledInDental;
 	}
 	
 	/**
@@ -106,7 +92,7 @@ public final class BenefitEvent extends EventObject{
 	 * @return the consultant that was terminated
 	 */
 	public Consultant getConsultant() {
-		return new Consultant(new PersonalName("Stamm", "Brian"));
+		return consultant;
 	}
 	
 	/**
@@ -114,7 +100,7 @@ public final class BenefitEvent extends EventObject{
 	 * @return the effective date
 	 */
 	public LocalDate getEffectiveDate(){
-		return LocalDate.now();
+		return effectiveDate;
 	}
 
 }

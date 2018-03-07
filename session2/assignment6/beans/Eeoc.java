@@ -1,25 +1,28 @@
 package com.scg.beans;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.scg.util.PersonalName;
 
 /**
  * The EEOC monitors SCG's terminations. Listens for TerminationEvents and maintains 
  * a count of each type of termination event, and makes these counts available. All 
  * TerminationEvents are logged.
  * @author Brian Stamm
- *
  */
 public class Eeoc extends Object implements TerminationListener{
 	
-	private int v;
-	private int n;
-	private Logger log;
+	private int voluntary;
+	private int forced;
+	private static final Logger log = LoggerFactory.getLogger(Eeoc.class);
 	
 	/**
 	 * Constructor.
 	 */
 	public Eeoc() {
-		
+		voluntary = 0;
+		forced = 0;
 	}
 	
 	/**
@@ -30,8 +33,9 @@ public class Eeoc extends Object implements TerminationListener{
 	public void voluntaryTermination(TerminationEvent evt) {
 		PersonalName name = evt.getConsultant().getName();
 		if(log.isInfoEnabled()) {
-			log.info(name + )
+			log.info(name + "voluntary");
 		}
+		voluntary++;
 	}
 	
 	/**
@@ -40,7 +44,11 @@ public class Eeoc extends Object implements TerminationListener{
 	 * @param evt - the termination event
 	 */
 	public void forcedTermination(TerminationEvent evt) {
-		
+		PersonalName name = evt.getConsultant().getName();
+		if(log.isInfoEnabled()) {
+			log.info(name + "FORCED");
+		}
+		forced++;
 	}
 	
 	/**
@@ -48,7 +56,7 @@ public class Eeoc extends Object implements TerminationListener{
 	 * @return the forced termination count
 	 */
 	public int forcedTerminationCount() {
-		return 1;
+		return forced;
 	}
 	
 	/**
@@ -56,7 +64,7 @@ public class Eeoc extends Object implements TerminationListener{
 	 * @return the voluntary termination count
 	 */
 	public int voluntaryTerminationCount() {
-		return 1;
+		return voluntary;
 	}
 	
 }

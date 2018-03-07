@@ -3,7 +3,6 @@ package com.scg.beans;
 import java.util.EventObject;
 
 import com.scg.domain.Consultant;
-import com.scg.util.PersonalName;
 
 /**
  * Event used to notify listeners of a Consultant's termination.
@@ -11,8 +10,9 @@ import com.scg.util.PersonalName;
  */
 public class TerminationEvent extends EventObject{
 	
-	private consultant;
-	boolean voluntary;
+	private static final long serialVersionUID = 5057775166410885952L;
+	private Consultant consultant;
+	private boolean voluntary;
 
 	/**
 	 * Constructor
@@ -22,7 +22,8 @@ public class TerminationEvent extends EventObject{
 	 */
 	public TerminationEvent(Object source, Consultant consultant, boolean voluntary){
 		super(source);
-		// TODO Auto-generated constructor stub
+		this.consultant = consultant;
+		this.voluntary = voluntary;
 	}
 	
 	/**
@@ -30,7 +31,7 @@ public class TerminationEvent extends EventObject{
 	 * @return true if a voluntary termination
 	 */
 	public boolean isVoluntary() {
-		return true;
+		return voluntary;
 	}
 	
 	/**
@@ -38,7 +39,7 @@ public class TerminationEvent extends EventObject{
 	 * @return the consultant that was terminated
 	 */
 	public Consultant getConsultant() {
-		return new Consultant(new PersonalName("Stamm", "Brian"));
+		return consultant;
 	}
 
 }

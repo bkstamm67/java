@@ -5,6 +5,9 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyVetoException;
 import java.beans.VetoableChangeListener;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Approves or rejects compensation changes. Listens for PropertyChangeEvents on the 
  * payRate property, any pay rate increase in excess of will be vetoed. The rejection 
@@ -14,8 +17,9 @@ import java.beans.VetoableChangeListener;
  */
 public class CompensationManager extends Object implements PropertyChangeListener, VetoableChangeListener{
 
-	int max = 105;
-	int to = 100;
+	private int max = 105;
+	private int to = 100;
+	private static final Logger log = LoggerFactory.getLogger(CompensationManager.class);
 	
 	/**
 	 * Constructor.
@@ -31,16 +35,17 @@ public class CompensationManager extends Object implements PropertyChangeListene
 	 */
 	@Override
 	public void vetoableChange(PropertyChangeEvent evt) throws PropertyVetoException {
-		// TODO Auto-generated method stub
 		if(StaffConsultant.PAY_RATE_PROPERTY_NAME.equals(evt.getPropertyName())) {
-			int old = (Integer)evt.getOldValue();
-			//do same for new
+		//if(StaffConsultant.PAY_RATE_PROPERTY_NAME.equals(evt.getPropertyName())) {
+			int oldPay = (Integer)evt.getOldValue();
+			int newPay = (Integer)evt.getNewValue();
 			
-			if(newValue * to > oldValue) {
-				if(log.isInfoEnabled) {
-					log.
+			if(newPay * to > oldPay * max) {
+				if(log.isInfoEnabled()) {
+					log.info("Here we go again");
 				}
-			}throw new PropertyVetoException("Raised denied")
+			}
+			throw new PropertyVetoException("Raised denied",evt);
 		}
 		
 	}
@@ -52,7 +57,16 @@ public class CompensationManager extends Object implements PropertyChangeListene
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		// TODO Auto-generated method stub
-		if(StaffConsultant.PayRate)
+		if(StaffConsultant.PAY_RATE_PROPERTY_NAME.equals(evt.getPropertyName())) {
+			int oldPay = (Integer)evt.getOldValue();
+			int newPay = (Integer)evt.getNewValue();
+			
+			if(newPay * to < oldPay * max) {
+				if(log.isInfoEnabled()) {
+					log.info("Here we go again, correct!");
+				}
+			}
+		}
 	}
 
 }

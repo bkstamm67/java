@@ -18,6 +18,10 @@ import com.scg.util.PersonalName;
  */
 public final class StaffConsultant extends Consultant implements Serializable {
 	
+	public static final String PAY_RATE_PROPERTY_NAME = "payRate";
+	public static final String SICK_LEAVE_HOURS_PROPERTY_NAME = "sickLeaveHours";
+	public static final String VACATION_HOURS_PROPERTY_NAME = "vacationHours";
+	
 	private static final long serialVersionUID = -7841900527734028856L;
 	private int payRate;
 	private int sickLeaveHours;
@@ -56,10 +60,10 @@ public final class StaffConsultant extends Consultant implements Serializable {
 	 * @throws PropertyVetoException - if a veto occurs
 	 */
 	public synchronized void setPayRate(int newRate) throws PropertyVetoException {
-		vcs.fireVetoableChange("payrate", this.payRate, newRate);
-		double oldRate = payRate;
+		//vcs.fireVetoableChange(PAY_RATE_PROPERTY_NAME, this.payRate, newRate);
+		int oldRate = payRate;
 		this.payRate = newRate;
-		pcs.firePropertyChange("payRate", oldRate, payRate);  
+		pcs.firePropertyChange(PAY_RATE_PROPERTY_NAME, oldRate, payRate);  
 	}
 	
 	/**
@@ -83,7 +87,7 @@ public final class StaffConsultant extends Consultant implements Serializable {
 	 * @param pcl - the listener
 	 */
 	public synchronized void addPayRateListener(PropertyChangeListener pcl) {
-		pcs.addPropertyChangeListener("payRate",pcl);
+		pcs.addPropertyChangeListener(PAY_RATE_PROPERTY_NAME,pcl);
 	}
 	
 	/**
@@ -91,7 +95,7 @@ public final class StaffConsultant extends Consultant implements Serializable {
 	 * @param pcl  - the listener
 	 */
 	public synchronized void removePayRateListener(PropertyChangeListener pcl) {
-		pcs.removePropertyChangeListener("payRate",pcl);
+		pcs.removePropertyChangeListener(PAY_RATE_PROPERTY_NAME,pcl);
 	}
 	
 	/**
@@ -99,7 +103,7 @@ public final class StaffConsultant extends Consultant implements Serializable {
 	 * @param pcl  - the listener
 	 */
 	public synchronized void addVetoableChangeListener(VetoableChangeListener v) {
-		vcs.addVetoableChangeListener("payRate",v);
+		vcs.addVetoableChangeListener(PAY_RATE_PROPERTY_NAME,v);
 	}
 
 	/**
@@ -107,7 +111,7 @@ public final class StaffConsultant extends Consultant implements Serializable {
 	 * @param pcl  - the listener
 	 */
 	public synchronized void removeVetoableChangeListener(VetoableChangeListener pcl) {
-		vcs.removeVetoableChangeListener("payRate", pcl);
+		vcs.removeVetoableChangeListener(PAY_RATE_PROPERTY_NAME, pcl);
 	}
 	
 	/**
@@ -126,7 +130,7 @@ public final class StaffConsultant extends Consultant implements Serializable {
 	public synchronized void setSickLeaveHours(int sickLeaveHours) {
 		int oldHours = this.sickLeaveHours;
 		this.sickLeaveHours = sickLeaveHours;
-		pcs.firePropertyChange("sickLeave", oldHours, sickLeaveHours); 
+		pcs.firePropertyChange(SICK_LEAVE_HOURS_PROPERTY_NAME, oldHours, sickLeaveHours); 
 		
 	}
 	
@@ -135,7 +139,7 @@ public final class StaffConsultant extends Consultant implements Serializable {
 	 * @param pcl  - the listener
 	 */
 	public synchronized void addSickLeaveHoursListener(PropertyChangeListener pcl) {
-		pcs.addPropertyChangeListener("sickLeave",pcl);
+		pcs.addPropertyChangeListener(SICK_LEAVE_HOURS_PROPERTY_NAME,pcl);
 	}
 	
 	/**
@@ -143,7 +147,7 @@ public final class StaffConsultant extends Consultant implements Serializable {
 	 * @param pcl  - the listener
 	 */
 	public synchronized void removeSickLeaveHoursListener(PropertyChangeListener pcl) {
-		pcs.removePropertyChangeListener("sickLeave",pcl);
+		pcs.removePropertyChangeListener(SICK_LEAVE_HOURS_PROPERTY_NAME,pcl);
 	}
 
 	/**
@@ -160,7 +164,53 @@ public final class StaffConsultant extends Consultant implements Serializable {
 	public synchronized void setVacationHours(int vacationHours) {
 		int oldHours = this.vacationHours;
 		this.vacationHours = vacationHours;
-		pcs.firePropertyChange("vacationHours", oldHours, this.vacationHours); 
+		pcs.firePropertyChange(VACATION_HOURS_PROPERTY_NAME, oldHours, this.vacationHours); 
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + payRate;
+		result = prime * result + ((pcs == null) ? 0 : pcs.hashCode());
+		result = prime * result + sickLeaveHours;
+		result = prime * result + vacationHours;
+		result = prime * result + ((vcs == null) ? 0 : vcs.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StaffConsultant other = (StaffConsultant) obj;
+		if (payRate != other.payRate)
+			return false;
+		if (pcs == null) {
+			if (other.pcs != null)
+				return false;
+		} else if (!pcs.equals(other.pcs))
+			return false;
+		if (sickLeaveHours != other.sickLeaveHours)
+			return false;
+		if (vacationHours != other.vacationHours)
+			return false;
+		if (vcs == null) {
+			if (other.vcs != null)
+				return false;
+		} else if (!vcs.equals(other.vcs))
+			return false;
+		return true;
 	}
 
 	/**
@@ -168,13 +218,13 @@ public final class StaffConsultant extends Consultant implements Serializable {
 	 * @param pcl - the listener
 	 */
 	public synchronized void addVacationHoursListener(PropertyChangeListener pcl) {
-		pcs.addPropertyChangeListener("vacationHours",pcl);
+		pcs.addPropertyChangeListener(VACATION_HOURS_PROPERTY_NAME,pcl);
 	}
 	/**
 	 * Removes a vacationHours property change listener.
 	 * @param pcl - the listener
 	 */
 	public synchronized void removeVacationHoursListener(PropertyChangeListener pcl) {
-		pcs.removePropertyChangeListener("vacationHours",pcl);
+		pcs.removePropertyChangeListener(VACATION_HOURS_PROPERTY_NAME,pcl);
 	}
 }

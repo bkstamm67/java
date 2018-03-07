@@ -2,7 +2,9 @@ package com.scg.beans;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.logging.Logger;
+
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 /**
  * Tracks changes in employee benifits. Listens for any PropertyChangeEvent and simply logs 
@@ -12,8 +14,9 @@ import java.util.logging.Logger;
  *
  */
 public final class BenefitManager extends Object implements PropertyChangeListener, BenefitListener{
-
-	private Logger log = LoggerFactory;
+	
+	private static final Logger log = LoggerFactory.getLogger(BenefitManager.class);
+	
 	/**
 	 * Constructor
 	 */
@@ -30,15 +33,23 @@ public final class BenefitManager extends Object implements PropertyChangeListen
 	public void propertyChange(PropertyChangeEvent evt) {
 		final String popName = evt.getPropertyName();
 		int oldVale = (Integer)evt.getOldValue();
-		//newvalue too
-		if(log.isInforEnable.)
+		int newVale = (Integer)evt.getNewValue();
+		/*if(log.isInforEnable.)
 		
 		System.out.printf("Tracker: Hours changed for %s from %d to %d%n",
-		          evt.getPropertyName(), evt.getOldValue(), evt.getNewValue());
+		          evt.getPropertyName(), evt.getOldValue(), evt.getNewValue());*/
+		if(log.isInfoEnabled()) {
+			System.out.printf("Tracker: Hours changed for %s from %d to %d%n",
+					popName, oldVale, newVale);
+		}
+		else {
+			System.out.printf("Tracker ELSE: Hours changed for %s from %d to %d%n",
+					popName, oldVale, newVale);
+		}
 	}
 	
 	/**
-	 * 	Description copied from interface: BenefitListener
+	 * Description copied from interface: BenefitListener
 	 * Invoked when a consultant is enrolls in medical.
 	 * Specified by:
 	 * medicalEnrollment in interface BenefitListener
@@ -46,7 +57,7 @@ public final class BenefitManager extends Object implements PropertyChangeListen
 	 */
 	public void medicalEnrollment(BenefitEvent evnt) {
 		if(log.isInfoEnabled()) {
-			log.info(evnt.getConsultant().getName()) "+ somethign");
+			log.info(""+ evnt.getConsultant().getName() +"+ MED enrolled");
 		}
 	}
 
@@ -58,7 +69,9 @@ public final class BenefitManager extends Object implements PropertyChangeListen
 	 * @param evnt - the benefit event
 	 */
 	public void medicalCancellation(BenefitEvent evnt) {
-		
+		if(log.isInfoEnabled()) {
+			log.info(""+ evnt.getConsultant().getName() +"+ MED cancelled");
+		}
 	}
 
 	/**
@@ -69,7 +82,9 @@ public final class BenefitManager extends Object implements PropertyChangeListen
 	 * @param evnt - the benefit event
 	 */
 	public void dentalEnrollment(BenefitEvent evnt) {
-		
+		if(log.isInfoEnabled()) {
+			log.info(""+ evnt.getConsultant().getName() +"+ DENTAL enrolled");
+		}
 	}
 
 	/**
@@ -80,7 +95,9 @@ public final class BenefitManager extends Object implements PropertyChangeListen
 	 * @param evnt - the benefit event
 	 */
 	public void dentalCancellation(BenefitEvent evnt) {
-		
+		if(log.isInfoEnabled()) {
+			log.info(""+ evnt.getConsultant().getName() +"+ DENTAL cancelled");
+		}
 	}
 
 }
