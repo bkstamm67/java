@@ -34,10 +34,7 @@ public final class BenefitManager extends Object implements PropertyChangeListen
 		final String popName = evt.getPropertyName();
 		int oldVale = (Integer)evt.getOldValue();
 		int newVale = (Integer)evt.getNewValue();
-		/*if(log.isInforEnable.)
-		
-		System.out.printf("Tracker: Hours changed for %s from %d to %d%n",
-		          evt.getPropertyName(), evt.getOldValue(), evt.getNewValue());*/
+
 		if(log.isInfoEnabled()) {
 			System.out.printf("Tracker: Hours changed for %s from %d to %d%n",
 					popName, oldVale, newVale);

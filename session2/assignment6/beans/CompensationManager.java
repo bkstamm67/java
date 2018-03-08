@@ -17,8 +17,8 @@ import org.slf4j.LoggerFactory;
  */
 public class CompensationManager extends Object implements PropertyChangeListener, VetoableChangeListener{
 
-	private int max = 105;
-	private int to = 100;
+	private int maxIncrease = 105;
+	private int standard = 100;
 	private static final Logger log = LoggerFactory.getLogger(CompensationManager.class);
 	
 	/**
@@ -36,18 +36,16 @@ public class CompensationManager extends Object implements PropertyChangeListene
 	@Override
 	public void vetoableChange(PropertyChangeEvent evt) throws PropertyVetoException {
 		if(StaffConsultant.PAY_RATE_PROPERTY_NAME.equals(evt.getPropertyName())) {
-		//if(StaffConsultant.PAY_RATE_PROPERTY_NAME.equals(evt.getPropertyName())) {
 			int oldPay = (Integer)evt.getOldValue();
 			int newPay = (Integer)evt.getNewValue();
 			
-			if(newPay * to > oldPay * max) {
+			if((newPay*standard) > (oldPay * maxIncrease)) {
 				if(log.isInfoEnabled()) {
-					log.info("Here we go again");
+					log.info("Raise is too big this time!");
 				}
+				throw new PropertyVetoException("Raised denied",evt);
 			}
-			throw new PropertyVetoException("Raised denied",evt);
 		}
-		
 	}
 
 	/**
@@ -56,14 +54,13 @@ public class CompensationManager extends Object implements PropertyChangeListene
 	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
 		if(StaffConsultant.PAY_RATE_PROPERTY_NAME.equals(evt.getPropertyName())) {
 			int oldPay = (Integer)evt.getOldValue();
 			int newPay = (Integer)evt.getNewValue();
 			
-			if(newPay * to < oldPay * max) {
+			if((newPay * standard) < (oldPay * maxIncrease)) {
 				if(log.isInfoEnabled()) {
-					log.info("Here we go again, correct!");
+					log.info("You got a raise!");
 				}
 			}
 		}

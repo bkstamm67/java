@@ -38,7 +38,7 @@ public final class HumanResourceManager extends Object{
 		try {
 			c.setPayRate(newPayRate);
 			if(log.isInfoEnabled()) {
-				String msg = String.format("Percent change = %d - %d", newPayRate, c.getPayRate());
+				String msg = String.format("Percent change = %d - %d = %d", newPayRate, c.getPayRate(),(newPayRate/c.getPayRate()));
 				log.info(msg);
 			}
 		}
@@ -46,7 +46,7 @@ public final class HumanResourceManager extends Object{
 			log.info("Caught HRM PropertyVetoException error");
 		}
 	}
-	
+
 	/**
 	 * Sets the sick leave hours for a staff consultant.
 	 * @param c - the consultant
@@ -147,14 +147,13 @@ public final class HumanResourceManager extends Object{
 	public void removeBenefitListener(BenefitListener bl) {
 		listenerList.remove(BenefitListener.class, bl);
 	}
-	/*
-	private void fireTerminationEvent(new TerminationEvent(this,c,true)){
-		final TerminationListener[] listeners = listenerList.getListeners(TerminationLister.class);
-	}
-	*/
 	
+	/**
+	 * This is a private function used for termination events to pass notifications 
+	 * depending if the event is either voluntary or not.
+	 * @param evnt
+	 */
 	private void fireTerminationEvent(final TerminationEvent evnt){
-		//final TerminationListener[] listeners = listenerList.getListeners(TerminationLister.class);
 		final TerminationListener[] listeners = listenerList.getListeners(TerminationListener.class);
 		for(final TerminationListener listener : listeners ) {
 			if(evnt.isVoluntary()) {
@@ -166,16 +165,19 @@ public final class HumanResourceManager extends Object{
 		}
 	}
 	
+	/**
+	 * This is a private function used to pass the event to the various listeners
+	 * for either medical or dental.
+	 * @param evnt
+	 */
 	private void fireBenefitEvent(final BenefitEvent evnt){
 		final BenefitListener[] listeners = listenerList.getListeners(BenefitListener.class);
 		if(evnt.medicalStatus().isPresent()) {
-			boolean medicalStatus = evnt.medicalStatus().get();//evnt.medicalStatus.get();
+			boolean medicalStatus = evnt.medicalStatus().get();
 			for(final BenefitListener listener: listeners) {
 				if(medicalStatus) {
-					//listener.medicalEnrollemnt(evnt);
 					listener.medicalEnrollment(evnt);
 				}else {
-					//listnener.medicalCacellation(evnt);
 					listener.medicalCancellation(evnt);
 				}
 			}

@@ -33,7 +33,7 @@ public class Eeoc extends Object implements TerminationListener{
 	public void voluntaryTermination(TerminationEvent evt) {
 		PersonalName name = evt.getConsultant().getName();
 		if(log.isInfoEnabled()) {
-			log.info(name + "voluntary");
+			log.info(name + "voluntary left.");
 		}
 		voluntary++;
 	}
@@ -46,7 +46,7 @@ public class Eeoc extends Object implements TerminationListener{
 	public void forcedTermination(TerminationEvent evt) {
 		PersonalName name = evt.getConsultant().getName();
 		if(log.isInfoEnabled()) {
-			log.info(name + "FORCED");
+			log.info(name + "FORCED out!");
 		}
 		forced++;
 	}

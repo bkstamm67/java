@@ -53,17 +53,16 @@ public final class StaffConsultant extends Consultant implements Serializable {
 		return payRate;
 	}
 
-
 	/**
 	 * Set the pay rate. Fires the VetoableChange event and if approved the PropertyChange event.
 	 * @param payRate - the pay rate in cents
 	 * @throws PropertyVetoException - if a veto occurs
 	 */
 	public synchronized void setPayRate(int newRate) throws PropertyVetoException {
-		//vcs.fireVetoableChange(PAY_RATE_PROPERTY_NAME, this.payRate, newRate);
 		int oldRate = payRate;
+		this.vcs.fireVetoableChange(PAY_RATE_PROPERTY_NAME,oldRate,newRate);
 		this.payRate = newRate;
-		pcs.firePropertyChange(PAY_RATE_PROPERTY_NAME, oldRate, payRate);  
+		pcs.firePropertyChange(PAY_RATE_PROPERTY_NAME, oldRate, this.payRate);  
 	}
 	
 	/**
@@ -122,7 +121,6 @@ public final class StaffConsultant extends Consultant implements Serializable {
 		return sickLeaveHours;
 	}
 
-
 	/**
 	 * Set the sick leave hours. Fires the ProperrtyChange event.
 	 * @param sickLeaveHours the sickLeaveHours to set
@@ -157,7 +155,6 @@ public final class StaffConsultant extends Consultant implements Serializable {
 		return vacationHours;
 	}
 
-
 	/**
 	 * @param vacationHours the vacationHours to set
 	 */
@@ -167,6 +164,22 @@ public final class StaffConsultant extends Consultant implements Serializable {
 		pcs.firePropertyChange(VACATION_HOURS_PROPERTY_NAME, oldHours, this.vacationHours); 
 	}
 
+	/**
+	 * Adds a vacationHours property change listener.
+	 * @param pcl - the listener
+	 */
+	public synchronized void addVacationHoursListener(PropertyChangeListener pcl) {
+		pcs.addPropertyChangeListener(VACATION_HOURS_PROPERTY_NAME,pcl);
+	}
+	
+	/**
+	 * Removes a vacationHours property change listener.
+	 * @param pcl - the listener
+	 */
+	public synchronized void removeVacationHoursListener(PropertyChangeListener pcl) {
+		pcs.removePropertyChangeListener(VACATION_HOURS_PROPERTY_NAME,pcl);
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -212,19 +225,5 @@ public final class StaffConsultant extends Consultant implements Serializable {
 			return false;
 		return true;
 	}
-
-	/**
-	 * Adds a vacationHours property change listener.
-	 * @param pcl - the listener
-	 */
-	public synchronized void addVacationHoursListener(PropertyChangeListener pcl) {
-		pcs.addPropertyChangeListener(VACATION_HOURS_PROPERTY_NAME,pcl);
-	}
-	/**
-	 * Removes a vacationHours property change listener.
-	 * @param pcl - the listener
-	 */
-	public synchronized void removeVacationHoursListener(PropertyChangeListener pcl) {
-		pcs.removePropertyChangeListener(VACATION_HOURS_PROPERTY_NAME,pcl);
-	}
+	
 }
