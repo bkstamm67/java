@@ -1,0 +1,137 @@
+assignment
+class.forname
+dbserver db
+
+for(Consultant cons : db.getConsultant){
+	print out consult.getName;
+}
+
+for(clientAccount c : db.getClients()){
+	final invoice db.getInvoice(client, constalt mont, constant year)
+
+	invoice.toReportString
+}
+
+
+
+dbserver
+
+had private static final string for the sql queries
+
+client insert - insert into clients (name, streate, city, starte, postal_code, contactLastName, constactFirstname, constatcMiddleName) VALUVES(???????,,,,,?);
+
+billablehoursinsert - insert into billable_hours (client_id,timecard_id,date, skill,hours) values ((SELECT distanct id from clients where name = ?),?,?,?,?)";
+
+invoice itesm looks the same
+
+
+he uses logger again - Logger log = LoggerFactory.getLogger(DBServicer.class);
+
+just has url pass, name
+
+not conect or 
+
+addClient
+try block
+try(Conection conn = DriverManager.getConnection(dbUrl, user, pass);
+prepreaedStatment = ps = conn.preparteStatement(string){
+	ps.setString(1,client.getName
+	//enum - to get valueOf, to set - .name
+
+	ps.executeUpdate)
+} 
+
+getClients(){
+	
+	trystatement stm = conn.createStatement();
+	resultset rs = stmt.executeQuery("statement");
+	//array
+	while(rs.next()){
+		get the things starting at 1
+		//create client account
+		//add to array
+	}
+}
+
+
+addConsultant, pretty much the same - try (Connectin conn = DriverManager.getConnection...)
+
+
+
+timecard -
+connects,
+creates PreparedStatemnt for each (4)
+final Peronal name =timeCard.getConsulatatn.getname()
+sonsultatStm.setString(1,)...
+timecardStatme has Statment.returnGeneraltedKeys
+try(ResultSet constrSet = constultstma.executeQueury)
+	if(constSet.next){
+	id = resultSet.getInt(1);
+	closet.ConstlulReulstSet.close();
+	timeCardstment.setInt(1, consultantId);
+	Date date = Date.valueOf(timeCard.getWeekStartingDay());
+	timeardStat.setDate(2,date);
+	timCardStatmet.executeUPdate();
+
+	rs timecardrs = timcardstamt.getGeneratedKeys();
+
+	if(timCardReultsSet.next){
+		timeCardId = retulstSet.getInt(1);
+		list CT entrys = entries = tc.getCHours;
+
+		for(CT entry : entries){
+
+		@suppressWarnings("resources")
+		prepartstate ps = entry.isBillable() ? billable STMNT : notBillbableSTM;
+		int ndx = 1;
+		ps.setString(ndx++,entry.isBillable ? entry.getAccount.getName() : ((NonBillableAccount)entry.getAccount().name())
+		ps.setInt(ndx++,timCardID)
+
+		add the rest of things
+		ps.addBatch();
+		}
+		billableStatmnt.executeBatch();
+		nonBillableStmt.executeBatch();
+		else{
+		log
+		}
+
+	}
+	}
+
+
+invoice -
+
+invoice in = new invoie;
+try(conn){
+	ps.setString(1, client.getname)
+	localt date = invstart = inv.getstatedate
+	localdate invend = invStartDate.pluseMonths(1)
+	ps.setDate(2,Date.valueOf(startDate));
+	//same for end
+
+	try(resultateset rs = ps.executedQuery();){
+	wjo;e(rs.next()){
+	date = re.getDate1
+	clasname = rs.getString 2
+	...
+
+	skill sk = skill.valueOf
+	invoiceLineItem = item = new InvLient()
+	invoice.addLine(invoiceLineItem)	}
+return invoice;
+	}
+}
+
+
+
+NEXT week
+
+addCC({
+	supper(target)
+})
+
+execyted{
+	getReeiver().eecuted(this);
+}
+
