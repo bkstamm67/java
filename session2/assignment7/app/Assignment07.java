@@ -24,27 +24,35 @@ public class Assignment07 {
 	 * @throws - if anything goes awry
 	 */
 	public static void main(String[] args) throws Exception {
-		
+		//Variables used to connect to the database
 		String url = "jdbc:derby://localhost:1527/memory:scgDb";
 		String user = "student";
 		String password = "student";
+		
+		//Variables used for the invoice
 	    final Month INVOICE_MONTH = Month.MARCH;
 	    final int INVOICE_YEAR = 2006;
 	    
+	    //Lists used to create invoices, and a list of invoices to save those that are created
 		List<ClientAccount> clients = new ArrayList<>();
 		List<Consultant> consultants = new ArrayList<>();
 		List<TimeCard> timeCards = new ArrayList<>();
 		List<Invoice> invoices = new ArrayList<>();
 		
+		//Create instance of DbServer
 		DbServer db = new DbServer(url,user,password);
+		
+		//Fill lists, only need the clients' list
 		ListFactory.populateLists(clients, consultants, timeCards);
 		
+		//Add invoices for each client, using the getInvoice method from DbServer
 		for(ClientAccount ca : clients) {
 			invoices.add(db.getInvoice(ca, INVOICE_MONTH, INVOICE_YEAR));
 		}
 		
+		//Prints out invoices
 		for(Invoice i : invoices) {
-			System.out.println(i.toString());
+			System.out.println(i.toReportString());
 		}
 
 	}

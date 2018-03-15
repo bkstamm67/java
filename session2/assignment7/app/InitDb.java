@@ -19,27 +19,26 @@ public class InitDb {
 	/**
 	 * Entry point. Connects to the database and inserts the client, consultant and time card data.
 	 * @param args- not used.
-	 * @throws Exception - if anything goes awry
-	  
-	   Driver class: org.apache.derby.jdbc.ClientDriver (usage optional)
-  URL:          jdbc:derby://localhost:1527/memory:scgDb
-  Username:     student
-  Password:     student 
-	 
+	 * @throws Exception - if anything goes awry	 
 	 */
 	public static void main(String[] args) throws Exception {
 		
+		//Variables used for connecting to the database
 		String url = "jdbc:derby://localhost:1527/memory:scgDb";
 		String user = "student";
 		String password = "student";
 		
+		//Lists used to fill the database
 		List<ClientAccount> clients = new ArrayList<>();
 		List<Consultant> consultants = new ArrayList<>();
 		List<TimeCard> timeCards = new ArrayList<>();
 		
+		//Create an instance of DbServer
 		DbServer db = new DbServer(url,user,password);
+		//Fill the lists
 		ListFactory.populateLists(clients, consultants, timeCards);
 		
+		//Add values in list to database
 		for(ClientAccount ca : clients) {
 			db.addClient(ca);
 		}
