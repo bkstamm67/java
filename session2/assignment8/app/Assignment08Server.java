@@ -16,7 +16,16 @@ public class Assignment08Server {
 	 * @throws Exception - if the server raises any exceptions
 	 */
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
+		
+		String dirName = "";
+		
+		List<ClientAccount> clients = new ArrayList<>();
+		List<Consultant> consultants = new ArrayList<>();
+		List<TimeCard> unusedTimeCards = new ArrayList<>();
+		
+		ListFactory.populateLists(clients, consultants, timeCards);
+		
+		InvoiceServer iServer = new InvoiceServer(DEFAULT_PORT, clients, consultants, dirName);
 
 	}
 
