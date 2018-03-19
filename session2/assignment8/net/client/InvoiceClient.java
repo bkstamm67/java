@@ -13,6 +13,18 @@ import com.scg.domain.TimeCard;
  *
  */
 public class InvoiceClient {
+	
+	/** Something */
+	private int port;
+	
+	/** Something */
+	private String host;
+	
+	/** Something */
+	private List<TimeCard> timeCardList;
+	
+	/** Something */
+	private Socket socket;
 
 	/**
 	 * Construct an InvoiceClient with a host and port for the server.
@@ -21,7 +33,10 @@ public class InvoiceClient {
 	 * @param timeCardList - the list of timeCards to send to the server
 	 */
 	public InvoiceClient(String host,int port, List<TimeCard> timeCardList) {
-		
+		this.host = host;
+		this.port = port;
+		this.timeCardList = new ArrayList<>(timeCardList);
+		//socket = new Socket(host,port);
 	}
 	
 	/**
@@ -38,7 +53,13 @@ public class InvoiceClient {
 	 * @param out - the output stream connecting this client to the server.
 	 */
 	public void sendClients(ObjectOutputStream out) {
-		
+		try(Socket socket = new Socket(host,port);
+		    OutputStream os = socket.getOutputStream();
+		    PrintWriter wtr = new PrintWriter(new OutputStreamWriter(os), true);){
+			for(ClientAccount ca : clientAccountList){
+				wtr.println(ca);
+			}
+		}
 	}
 	
 	/**
@@ -63,7 +84,15 @@ public class InvoiceClient {
 	 * @param server - the connection to be closed after sending disconnect
 	 */
 	public void sendDisconnect(ObjectOutputStream out,Socket server) {
-		
+		/*
+		wtr.println("quit");
+		wtr.close();
+		try{
+			socket.close();
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		*/
 	}
 
 	/**
