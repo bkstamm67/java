@@ -16,6 +16,18 @@ import com.scg.domain.Consultant;
  */
 public class CommandProcessor {
 	
+	/** Something */
+	Socket connection;
+	/** Something */
+	List<ClientAccount> clientList;
+	/** Something */
+	List<Consultant> consultantList;
+	/** Something */
+	InvoiceServer server;
+	
+	/** Something */
+	private String outPutDirectoryName;
+	
 	/**
 	 * Construct a CommandProcessor.
 	 * @param connection - the Socket connecting the server to the client.
@@ -25,7 +37,10 @@ public class CommandProcessor {
 	 */
 	public CommandProcessor(Socket connection,List<ClientAccount> clientList,List<Consultant> consultantList, 
 			InvoiceServer server) {
-		
+		this.connection = connection;
+		this.clientList = new ArrayList<>(clientList);
+		this.consultantList = new ArrayList<>(consultantList);
+		this.server = server;
 	}
 	
 	/**
@@ -33,7 +48,7 @@ public class CommandProcessor {
 	 * @param outPutDirectoryName - the output directory name.
 	 */
 	public void setOutPutDirectoryName(String outPutDirectoryName) {
-		
+		this.outPutDirectoryName = outPutDirectoryName;
 	}
 	
 	/**
