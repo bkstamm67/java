@@ -1,5 +1,14 @@
 package app;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.scg.domain.ClientAccount;
+import com.scg.domain.Consultant;
+import com.scg.domain.TimeCard;
+import com.scg.net.server.InvoiceServer;
+import com.scg.util.ListFactory;
+
 /**
  * The server application for assignment 08, create an InvoiceServer instance and starts it.
  * @author Brian Stamm
@@ -23,7 +32,7 @@ public class Assignment08Server {
 		List<Consultant> consultants = new ArrayList<>();
 		List<TimeCard> unusedTimeCards = new ArrayList<>();
 		
-		ListFactory.populateLists(clients, consultants, timeCards);
+		ListFactory.populateLists(clients, consultants, unusedTimeCards);
 		
 		InvoiceServer iServer = new InvoiceServer(DEFAULT_PORT, clients, consultants, dirName);
 

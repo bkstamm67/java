@@ -1,6 +1,13 @@
 package com.scg.net.server;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.scg.domain.ClientAccount;
@@ -99,7 +106,7 @@ public class InvoiceServer {
 			client.close();
 		}
 		catch(IOException ex){
-			System.err.println("InvoiceServer error, connection: " + e);
+			System.err.println("InvoiceServer error, connection: " + ex);
 		}
 	}
 	

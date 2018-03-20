@@ -12,7 +12,8 @@ import com.scg.net.server.CommandProcessor;
 public class AbstractCommand<T> implements Command<T>{
 
 	private static final long serialVersionUID = -7637863811830949921L;
-	private CommandProcessor receiver;
+	protected CommandProcessor receiver;
+	private T target;
 
 	/**
 	 * Construct an AbstractCommand without a target; called from subclasses.
@@ -26,7 +27,7 @@ public class AbstractCommand<T> implements Command<T>{
 	 * @param target - the target
 	 */
 	public AbstractCommand(T target) {
-		
+		this.target = target;
 	}
 	
 	/**
@@ -52,8 +53,7 @@ public class AbstractCommand<T> implements Command<T>{
 	 */
 	@Override
 	public T getTarget() {
-		// TODO Auto-generated method stub
-		return null;
+		return target;
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class AbstractCommand<T> implements Command<T>{
 	 */
 	@Override
 	public String toString() {
-		return "AbstractCommand []";
+		return this.getClass().getSimpleName() + ", target " + target;
 	}
 	
 	

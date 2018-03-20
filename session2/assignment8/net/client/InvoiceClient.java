@@ -1,9 +1,14 @@
 package com.scg.net.client;
 
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.scg.domain.ClientAccount;
 import com.scg.domain.TimeCard;
 
 /**
@@ -25,6 +30,8 @@ public class InvoiceClient {
 	
 	/** Something */
 	private Socket socket;
+	
+	private List<ClientAccount> clientAccountList;
 
 	/**
 	 * Construct an InvoiceClient with a host and port for the server.

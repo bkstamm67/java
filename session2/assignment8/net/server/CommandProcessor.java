@@ -1,10 +1,15 @@
 package com.scg.net.server;
 
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.scg.domain.ClientAccount;
 import com.scg.domain.Consultant;
+import com.scg.domain.TimeCard;
+import com.scg.net.cmd.AddClientCommand;
+import com.scg.net.cmd.AddConsultantCommand;
+import com.scg.net.cmd.AddTimeCardCommand;
 
 /**
  * The command processor for the invoice server. Implements the receiver role in the 
@@ -23,8 +28,9 @@ public class CommandProcessor {
 	/** Something */
 	List<Consultant> consultantList;
 	/** Something */
+	List<TimeCard> timeCardList;
+	/** Something */
 	InvoiceServer server;
-	
 	/** Something */
 	private String outPutDirectoryName;
 	
@@ -40,6 +46,7 @@ public class CommandProcessor {
 		this.connection = connection;
 		this.clientList = new ArrayList<>(clientList);
 		this.consultantList = new ArrayList<>(consultantList);
+		this.timeCardList = new ArrayList<>();
 		this.server = server;
 	}
 	
@@ -56,7 +63,7 @@ public class CommandProcessor {
 	 * @param command - the command to execute.
 	 */
 	public void execute(AddTimeCardCommand command) {
-		
+		timeCardList.add(command.getTarget());
 	}
 	
 	/**
@@ -64,7 +71,7 @@ public class CommandProcessor {
 	 * @param command - the command to execute.
 	 */
 	public void execute(AddClientCommand command) {
-		
+		clientList.add(command.getTarget());
 	}
 	
 	/**
@@ -72,7 +79,7 @@ public class CommandProcessor {
 	 * @param command - the command to execute.
 	 */
 	public void execute(AddConsultantCommand command) {
-		
+		consultantList.add(command.getTarget());
 	}
 	
 	/**

@@ -1,0 +1,312 @@
+cmd things
+
+~~command~~
+
+can just use the javadocs, extends serializable, should be a interface
+
+public interface
+
+~~abstractcomamand~~
+
+receiver should be here as well as a private variable
+
+spresswarnings(seari
+
+private transient compand process recier
+private T target
+
+~~public abstractCommand(){}~~
+
+wiht T targee - sets target to be equal
+
+getReviewr returns it
+
+{@inheritDoc}
+toString - return this.getClass().getSimtpleName() + ", targe " + target
+
+should put in @override
+
+~~addclientcomment~~
+
+public final class AddClientCommand extends abstractCommand<ClientAccount>
+
+public addclientcoment(final ca target){
+	super(target);
+}
+
+executie(){
+	getReceiver.execute(this);
+}
+
+~~addconsultantcommand
+
+public addconsultantcommen(ca){
+	super(target);
+}
+
+execute is the same 
+
+
+~~timecard 
+
+its the same
+
+
+~~create invoice
+
+exetnds abstractComand<>localDate
+
+same thing
+
+public createinvoiceCommand(final localDate target)
+
+
+~~disconnet
+
+exetnds abstrac command<void>
+
+public DC(){
+	super();
+}
+
+execute{
+	same
+}
+
+~~Shutdown shoudl look the same as disconnect
+
+
+
+~~command porcess
+
+logger, encoding,
+socket
+list of client accounts, consultants, time cards (which he creates a new in top before constructor)
+
+string outputdirec name, and server (invoice server).
+
+set in the consturser.
+
+when passing in the arrayList, he just clears
+
+execute - adds to the list that's saved -
+
+pulci void exe(addTimeCardCommed){
+	timeCardList.add(timecard)
+}
+
+for these you have to do command.getTarget(); - so it'll ook like -
+
+public void execute(... command){
+	//he logs
+	timeCardList.add(commend.getTarget());
+}
+
+createinvoice comment{
+	
+	can steall from assign 5 - 
+	Inovice invoice = null;
+	LocalDate date = command.getTarget();
+	//format time...
+	for(finela CA client : clientList){
+		invoice = new Inovice(client, date.getMonth(), date.getYear());
+		for(TimeCard current TimeCard: tiecard isl){
+			infoicee.extractlistmeime(cTC);
+		}
+		if(invoice.getTOtalhours > 0){
+		serverDir = new File(outouptdirname){
+		if !servierDir.exist
+{
+		if(!serdir.mkdir(){
+		loogi
+		})
+
+		}
+		string outfileanme = string.format("%S%SInfoice.string, client.getName.replaceAll(" ", ""), monthString)
+;
+finelfinelOutFile = new file(outdir name, outfileName);
+try(PrintStream printout = PrintStream(new fileoutputstream(outfile), ture, endocding - this is IOSUSL-somethign something - the thing he uses all the time))}		}
+
+printOut.prlrintln(invoice.toReportString)
+		}
+
+		catch(filenotfile)
+			log
+		cathc(unsupportedEncdoingexceptione )
+			log
+	}
+}
+
+
+
+~~invoiceclient
+
+moth and date, stirng host, int port, list of timecards.
+
+set's in thing..
+
+sendClients(oututstring){
+	addclientcomment commend = null
+
+	//creat client
+	commend = new addConsultantCommend()
+	sendCOmment
+
+sendDiscotn
+creat comment,
+send
+try server.close
+catch
+
+create inovice
+set local date, create new comment, and then sends it
+
+send shutdown{
+	
+	try(Socket server = new Socket(h, p);){
+	sy.outlprintout(fshtughtout. .
+
+	outoutputersam out = new OojectOutputsteram(seriver.getoutputstream();
+	server.shutdownInput();
+	coundtcome = new shutodwncommand
+	sendcommend(o, command)
+	servicer.close();
+	cach(final ioexpectionm(ex)){
+	;pg
+	}
+
+
+	))
+
+\
+
+sendcoudner()
+try {
+	out.writeOoject(comend);
+	out.flush();
+	cathc(ioe e){
+	logger
+	}
+}	}
+}
+}
+
+run(){
+	
+	OOS out = ul
+	try(Socket = new So(h, p);{
+	system.outprintln(String.formate("Connected to server at: %S%S%d", server.getInetAddress().gethosthane, server.getINogadd.getHostAddr, server.getport))
+	})
+	server.shodownInput()
+	out = new ObjectOutputstearm.
+	sendclients
+}
+
+
+
+~~assi8
+list of acocunts, conultants, timecard, pass in to listfacotr
+invoiceClietn netClietn = new inc(localHost, assignment08Server.DEFAULTFOPORT, timeCards);
+netclietn.run();
+IC.sendShutdown(LH, ASSIGNEM08SERVER.DEFAULT_PORT);
+
+~~as8server
+
+priveate instaitation,
+
+main -
+
+create list of accounts, consutatnt, timecards ,and use list
+
+final invoiceserver server = new invoicervers()
+
+
+~~ invoiceserver
+
+logger,
+list of cliane accoutn, consultat
+server and stinrg, all in construction
+
+run.......
+try(serversocik sS = new SS(port)){
+	thi.sS = SS;
+	logger.info("InvoiceServer started on: ") + sS.getInetAddress().getHostName() + ":"
+	sS..getlocialPort
+
+
+while(!sS.isCLosted()){
+	logger waiting for connect;
+	try(SOcket clietn = serverSocket.accpet()){
+	serviceCOnnection(clietn)
+	}
+	catch(SocketExl)
+}}
+
+
+serviceConnection(Socket c){
+	try{
+	client.shutdownOutput();
+	Input Stream is = client.getInputSream();
+	ObjectInput stinream = in = new OIS(is);
+	looger conection
+	final commandPorcessor = cmdP = new CP(client, clientList, consutlaList, this);
+	cmdP.setOuptutDiectName(outputDirectName);
+	while(!client.isCLosed(){
+	filen objec obj = in.readOjbect();
+	if(obj == null){
+		client.close();
+	}
+	else if(obj isntace of COmmand<?){
+		fine command<? command = ((commena? ojce));
+		command.setReceiver.
+		command.execut
+		{
+		else e
+		logger.warn(STring alkjfa;l)
+		}
+	}
+	}
+	catch final ioex, classnotfioudn exped - obc.getclass()
+	}
+}
+
+shutdown{
+	try{
+		if(ss != null & !ss.isClosed()){
+			ss.closed()
+		}
+	}
+	catch(final IOE e){
+		logger.error("Shutdown unable to close listening soket.", e);
+	}
+
+}
+
+
+
+
+bottom of serviceConnect - 
+
+while(!clietn.isClosed()){
+		filan Oject obj = in.readOjbect();
+		if(obj == njull){
+			client.close();
+		}
+		else if(obj instanceof Command<?>){
+			final Command<?> command = (Command<?>)ojb;
+			looger.info(Received ommand: + command.getClass().getSimplaeName();
+			command.setReciver(cmdP);
+			command.execute;
+		}
+		else{
+			logger.warn(String.format("Reciever non command objec, %s, discarding.", obj.getClass().getSimpleName));
+		}
+	}
+	catch
+}
+
+
+
+
+
+cmd 
