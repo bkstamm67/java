@@ -1,3 +1,5 @@
+private static final String ENCODING = "ISO-8859-1"; - encoding string
+
 cmd things
 
 ~~command~~
