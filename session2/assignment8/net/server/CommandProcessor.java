@@ -33,6 +33,8 @@ public class CommandProcessor {
 	InvoiceServer server;
 	/** Something */
 	private String outPutDirectoryName;
+	/** Logger */
+	private static final Logger log = LoggerFactory.getLogger(CommandProcessor.class);
 	
 	/**
 	 * Construct a CommandProcessor.
@@ -95,8 +97,20 @@ public class CommandProcessor {
 				invoice.extractLineItems(currentTimeCard);
 			}
 			if(invoice.getTotalHours() > 0){
-				serverDir = new File(outPutDirectoryName);
-				if(!serverDir.exist()
+				File serverDir = new File(outPutDirectoryName);
+				if(!serverDir.exist()){
+					log.error("Output directory does not exist at " + outPutDirectoryName + 
+						  ".  CommandProcess - CreateInvoiceCommmand, serverDir.");
+				}
+				else {
+					String fileName = String.format("%s%sInvoice.txt",ca.getName().replaceAll(" ", "-"), date.getMonth());
+					File outputFile = new File(outPutDirectoryName, fileName);
+					try(PrintStream printOut = new PrintStream(new FileOutputStream(outputFile),true)){
+						printOut.println(invoice.toReportString());
+					}
+					catch(IOExecption e){
+						log.error("Cannot open file " + fileName + "- CommandProcess - CreateInvoiceCommmand, printOut:  " e);
+					}
 			}
 		}
 		
@@ -107,16 +121,29 @@ public class CommandProcessor {
 	 * @param command - the input DisconnectCommand.
 	 */
 	public void execute(DisconnectCommand command) {
-		
+		try{
+			connection.close();
+		}
+		catch(IOException e){
+			log.warn("Cannot close - CommandProcess, DisconnectCommand: ", e);
+		}
 	}
 	
 	/**
-	 * 	Execute a ShutdownCommand. Closes any current connections, stops listening for 
+	 * Execute a ShutdownCommand. Closes any current connections, stops listening for 
 	 * connections and then terminates the server, without calling System.exit.
 	 * @param command- the input ShutdownCommand.
 	 */
 	public void execute(ShutdownCommand command) {
-		
+		try{
+			connection.close();
+		}
+		catch(IOException e){
+			log.warn("Cannot close - CommandProcess, ShutdownCommand: ", e);
+		}
+		finally{
+			server.shutdown();
+		}
 	}
 
 }
