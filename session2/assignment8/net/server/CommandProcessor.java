@@ -87,6 +87,18 @@ public class CommandProcessor {
 	 * @param command - the command to execute.
 	 */
 	public void execute(CreateInvoicesCommand command) {
+		Invoice invoice = null;
+		LocalDate date = command.getTarget();
+		for(ClientAccount ca : clientList){
+			invoice = new Invoice(ca, date.getMonth(), date.getYear());
+			for(TimeCard currentTimeCard : timeCardList){
+				invoice.extractLineItems(currentTimeCard);
+			}
+			if(invoice.getTotalHours() > 0){
+				serverDir = new File(outPutDirectoryName);
+				if(!serverDir.exist()
+			}
+		}
 		
 	}
 	
