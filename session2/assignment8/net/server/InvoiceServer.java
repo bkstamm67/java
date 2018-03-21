@@ -22,6 +22,8 @@ import com.scg.domain.Consultant;
  */
 public class InvoiceServer {
 	
+	/** Logger for this class */
+	private static final Logger log = LoggerFactory.getLogger(InvoiceServer.class);
 	/** Something about port */
 	private int port;
 	/** Something */
@@ -55,15 +57,21 @@ public class InvoiceServer {
 	public void run() {
 		try{
 			serverSock = new ServerSocket(port);
-			System.out.println("InvoiceServer ready on port " + port + " . . .");
+			log.info("InvoiceServer ready on port " + port + " . . .");
+			
 			while(serverSock != null && !serverSock.isClosed()){
-				Socket sock = serverSock.accept();
-				serviceConnection(sock);
+				log.info("Waiting for connection.....");
+				try(Socket sock = serverSock.accept()){
+					serviceConnection(sock);
+				}
+				catch(SocketException e){
+					log.error("Unable to connect sockets - InvoiceServer - run: ",e);
+				}
 		}
 		catch(IOException e){
 			System.err.println("InvoiceServer error: " + e);
 		}
-		finally{
+		/*finally{
 			if(serverSock != null){
 				try{
 					serverSock.close();
@@ -72,7 +80,7 @@ public class InvoiceServer {
 					System.err.println("InvoiceServer error in closing: " + ioe);
 				}
 			}
-		}
+		}*/
 	}
 	
 	/**
@@ -114,6 +122,14 @@ public class InvoiceServer {
 	 * Shutdown the server.
 	 */
 	void shutdown() {
+		try{
+			if(serverSock != null & serverSock.isClosed()){
+				serverSock.closed();
+			}
+		}
+		catch(IOException e){
+			log.error("Shutdown unable to close InvoiceServer - shutdown: ",e);
+		}
 		
 	}
 	
