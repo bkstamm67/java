@@ -217,7 +217,24 @@ public final class CommandProcessor implements Runnable {
      */
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		
+		try (ServerSocket serverSocket = new ServerSocket(port)) {
+			this.serverSocket = serverSocket;
+			logger.info("InvoiceServer started on: "
+				    + serverSocket.getInetAddress().getHostName() + ":"
+				    + serverSocket.getLocalPort());
+			
+			while (!serverSocket.isClosed()) {
+				logger.info("InvoiceServer waiting for connection on port " + port);
+				try (Socket client = serverSocket.accept()) {
+					serviceConnection(client);
+				} 
+				catch (final SocketException sx) {
+					logger.info("Server socket closed.");
+				}
+			}
+		}
+		catch (final IOException e1) {
+			logger.error("Unable to bind server socket to port " + port);
+		}
 	}
 }
