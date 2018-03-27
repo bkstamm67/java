@@ -57,6 +57,7 @@ public class InvoiceServer {
         this.clientList = clientList;
         this.consultantList = consultantList;
         this.outputDirectoryName = outputDirectoryName;
+        this.serverSocket = new ServerSocket(port)
     }
 
     /**
@@ -64,7 +65,33 @@ public class InvoiceServer {
      * dispatching them to the CommandProcesser.
      */
     public void run() {
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
+        int processorNum = 0;
+        
+        while (!serverSocket.isClosed()) {
+            try{
+                logger.info("InvoiceServer waiting for connection on port " + port);
+                Socket client = serverSocket.accept();
+                final CommandProcessor commandProcess = new CommandProcessor(client, "CommandProcessor_"+processorNum,clientList,consultantList,this);
+                final File serverDir = new File(outputDirectoryName,Integer.toString(processorNum));
+                if(serverDir.exists()||serverDir.mkdirs()){
+                    commandProcess.setOutput(serverDir.getAbsolutePath());
+                    final Thread thread = new Thread(commandProcess,"CommandProcessor_"+processorNum);
+                    processorNum++;
+                }
+                else{
+                    logger.error("Poop");
+                }
+            }
+            catch (final SocketException sx) {
+                    logger.info("Server socket closed.");
+            }
+            catch (final IOException e1) {
+                //there a try block here.
+                logger.error("Unable to bind server socket to port " + port);
+            }
+        }
+                
+        /*try (ServerSocket serverSocket = new ServerSocket(port)) {
             this.serverSocket = serverSocket;
             logger.info("InvoiceServer started on: "
                       + serverSocket.getInetAddress().getHostName() + ":"
@@ -80,7 +107,7 @@ public class InvoiceServer {
             }
         } catch (final IOException e1) {
             logger.error("Unable to bind server socket to port " + port);
-        }
+        }*/
     }
 
     /**
