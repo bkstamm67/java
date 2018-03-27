@@ -31,7 +31,7 @@ import com.scg.util.StateCode;
  *
  * @author Russ Moul
  */
-public final class InvoiceClient {
+public final class InvoiceClient extends Thread{
     /** This class' logger. */
     private static final Logger logger =
                          LoggerFactory.getLogger(InvoiceClient.class);
