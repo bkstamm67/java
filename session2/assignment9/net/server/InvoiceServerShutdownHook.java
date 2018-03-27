@@ -15,17 +15,20 @@ import com.scg.domain.Consultant;
  */
 public class InvoiceServerShutdownHook extends Thread implements Runnable {
 
-	/**
-	 * Called by the Runtime when a shutdown signal is received. This will write the client and 
-	 * consultant lists to file, then shut down after SHUTDOWN_DELAY_SECONDS seconds.
-	 * 
-	 * @see run in interface Runnable
-	 */
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
-	}
+		/** The socket connection. */
+    private final Socket clientSocket;
+
+    /** The client list */
+    private final List<ClientAccount> clientList;
+
+    /** The consultant list  */
+    private final List<Consultant> consultantList;
+
+    /** The time card list to be maintained by this CommandProcessor. */
+    private final List<TimeCard> timeCardList = new ArrayList<TimeCard>();
+
+    /** The name of the directory to be used for files output by commands. */
+    private String outputDirectoryName = ".";
 	
 	/**
 	 * Construct an InvoiceServerShutDownHook.
@@ -37,8 +40,38 @@ public class InvoiceServerShutdownHook extends Thread implements Runnable {
 	public InvoiceServerShutdownHook(List<ClientAccount> clientList,
             List<Consultant> consultantList,
             String outputDirectoryName) {
-		
+		this.clientList = clientList;
+		this.consultantList = consultantList;
+		this.outputDirectoryName = outputDirectoryName;
 	}
-
-
+	
+	/**
+	 * Called by the Runtime when a shutdown signal is received. This will write the client and 
+	 * consultant lists to file, then shut down after SHUTDOWN_DELAY_SECONDS seconds.
+	 * 
+	 * @see run in interface Runnable
+	 */
+	@Override
+	public void run() {
+		final File serverDir = new File(outputDirectoryName);
+		if(serverDir.exists()||serverDir.mkdirs()){
+			File clientFile = new File(serverDir, "ClientList.txt");
+			File consultantFile = new File(serverDir, "ConsultantList.txt");
+			
+			try(PrintStream clientOut = new PrintStream(serverDir);
+			    PrintStream consultantOut = new PrintStream(serverDir);){
+				synchronized(clientList){
+					for(ClientAccount client : clientList){
+						clientOut.println(client);
+					}
+				}
+				synchronized(consultantList){
+					for(Consultant consultant : consultantList){
+						consultantOut.println(consultant);
+					}
+				}
+			}
+		}
+	}
+	
 }
