@@ -100,7 +100,12 @@ public final class CommandProcessor implements Runnable {
      */
     public void execute(final AddTimeCardCommand command) {
         logger.info("Executing add time card command: "  + command);
-        timeCardList.add(command.getTarget());
+	final TimeCard newTimeCard = command.getTarget();
+	synchronized(timeCardList){
+		if(!timeCardList.contains(newTimeCard)){
+			timeCardList.add(newTimeCard);
+		}
+	}
     }
 
     /**
@@ -110,7 +115,12 @@ public final class CommandProcessor implements Runnable {
      */
     public void execute(final AddClientCommand command) {
         logger.info("Executing add client command: "  + command);
-        clientList.add(command.getTarget());
+        final ClientAccount newAccount = command.getTarget();
+	synchronized(clientList){
+		if(!clientList.contains(newAccount)){
+			clientList.add(newAccount);
+		}
+	}
     }
 
     /**
@@ -120,7 +130,12 @@ public final class CommandProcessor implements Runnable {
      */
     public void execute(final AddConsultantCommand command) {
         logger.info("Executing add consultant command: "  + command);
-        consultantList.add(command.getTarget());
+        final Consultant newConsultant = command.getTarget();
+	synchronized(consultantList){
+		if(!consultantList.contains(newConsultant)){
+			consultantList.add(newConsultant);
+		}
+	}
     }
 
     /**
@@ -134,7 +149,8 @@ public final class CommandProcessor implements Runnable {
         LocalDate date = command.getTarget();
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMMyyyy");
         final String monthString = formatter.format(date);
-        for (final ClientAccount client : clientList) {
+        synchronized(clientList){
+	for (final ClientAccount client : clientList) {
             invoice = new Invoice(client, date.getMonth(), date.getYear());
             for (final TimeCard currentTimeCard : timeCardList) {
                 invoice.extractLineItems(currentTimeCard);
@@ -160,6 +176,7 @@ public final class CommandProcessor implements Runnable {
 				}
             }
         }
+	}
     }
 
     /**
