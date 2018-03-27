@@ -69,6 +69,7 @@ public final class InvoiceClient extends Thread{
      * the server, then sending the command to create invoices for a specified
      * month.
      */
+    @Override
     public void run() {
         ObjectOutputStream out = null;
         try (Socket server = new Socket(host, port);) {
@@ -85,7 +86,7 @@ public final class InvoiceClient extends Thread{
             sendTimeCards(out);
             createInvoices(out, INVOICE_MONTH, INVOICE_YEAR);
             sendDisconnect(out, server);
-            //server.shutdownOutput();
+            server.shutdownOutput();
         } catch (final IOException ex) {
             logger.error("Unable to connect to server.", ex);
         }
@@ -153,11 +154,12 @@ public final class InvoiceClient extends Thread{
     public void sendDisconnect(final ObjectOutputStream out, final Socket server) {
         final DisconnectCommand command = new DisconnectCommand();
         sendCommand(out, command);
+        /*
         try {
             server.close();
         } catch (IOException e) {
             logger.warn("Error closing socket.", e);
-        }
+        }*/
     }
 
     /**
