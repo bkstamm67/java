@@ -1,0 +1,187 @@
+~~ass9server
+
+devaultport = 10888;
+
+private constructor
+
+maint, all the same, 
+
+serrver.run()
+
+
+~~ass9
+
+string localhost = 237.0.0.2;
+
+main...
+
+creat list,
+
+create final List<TC> immutatalbe time cards = Collections.unmodifiableList(tc);
+
+create invoiceClient netClient01 = new ic(localthost, assignment09server.default_port, immutaletimecards);
+net02,net03....
+
+all run start - netClient01.start();
+
+all run .join();
+
+invoiceClient.sendShutdown(lh, ass09server.default_port);
+
+
+~~inociveClient - don't have to change much.... just have to extend
+
+@Override
+run(){
+	server.shutdownOutput(); (last before end of method)
+
+}
+
+sendDiscocnect - no try catch
+sendDisconnect(){
+	finalDisconnect command = new;
+	sendCommand(out, command);
+	}
+
+
+
+~~commandProcess
+
+extend
+
+all the same, but have a string Name 
+
+add lists -
+
+addclientcommand -
+logger...
+final ClietnAccount newAccount = command.getTarget(); //this is the same as consultant
+synchronized(cL){
+		if(!cL.conatins(newConulstant){
+			cL.add(newClient);
+		})
+}
+
+
+execute for CIC
+
+logger.
+invoice i = null
+dateat....
+
+all same, 
+syschronize(clientList){
+	same the for all the rest...
+}
+
+
+override run
+
+moved vrom InvoiceServer...
+
+run(){ //serviceConnectin and run
+	logger
+	ObjectInputStream in = null;
+	try{
+		in = new OIS(connection.getInputStream());
+		connection.shutdownOuput();
+	}
+	catch{
+		logg
+		return;
+	}
+
+	try{
+		while(!connection.isClosed()){
+			final Ojbect obj = in.readObject();
+			if(obj == null){
+				break;
+			}
+			else if
+			else...
+		}
+	catch{}
+	finally()
+	}
+}
+catch
+
+~~invoice server
+
+creates list, all private final...
+
+constructor - log - it's started - set serverSocket here
+Runtime.getRuntime().addShutdownHook(construct)
+
+this.outputDirectoryName = oDN;
+sS 
+
+run method -
+
+int processorNumber = 0;
+while(!serverSocket.isClosed()){
+	try{
+	...
+	
+	}
+	final File serverDir = new File(outDirName, Integer.toString(processorNumber);)
+	if(serverDir.exists() || s...){
+		commandProcessor.setOutputDirane(dirsDir.getAbsolutePath())
+		//final Thread = thread ()
+		finalThread thread -- new Thread(comProces, "commendardpoer" + num)
+		thread.start
+
+	}
+
+}
+
+shutdown the same
+
+
+
+
+
+issdh -
+
+run(){
+	file serverDri = new File(oDN);
+	if(serverDir.exist() || serverDir.mkdirs(){
+	file clientFile = new File(serverDir, "ClientList.txt");
+	file ConsultFile = new File();
+
+	try(PrintStream clientOUt....//for both clietn and constulatnt
+		sychronize(ConsltList){
+			for(final Conls ciutn: consultatntList){
+				consultatneOut.println(consultant);
+			}
+		}
+	)
+	cat
+
+
+	}
+}
+
+
+inoviceServer - run(){
+	int pN = 0;
+	while(!sS.isClosed()){
+		try{
+			logger.infor("waiting");
+			Socket client = sS.accept();
+			final CP cP = new CP(client, "command porcesser " + porcessorN, clientLIst, consulttantList, this);
+			final File serverDir = new File(oDN, Integer.toString(porcN));
+			if(sD.exists()||sd.mkdirs()){
+				cp.setOutPut(serverDir.getAbosolutePath());
+				final Thread thread = new Thread(cp, "CommandPoress_" + pn);
+				thread.streat
+			}
+			else{
+				logg.error(Unalbe there)
+			}
+		}
+		cat (socket exepct,
+		cat io exped
+			try
+	}
+}
