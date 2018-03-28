@@ -1,8 +1,7 @@
 package com.scg.net.server;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
@@ -12,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import com.scg.domain.ClientAccount;
 import com.scg.domain.Consultant;
-import com.scg.net.cmd.Command;
 
 /**
  * The server for creating new clients, consultants and time cards as well as
@@ -52,12 +50,12 @@ public class InvoiceServer {
     //Docs have it throw an IO exception
     public InvoiceServer(final int port, final List<ClientAccount> clientList,
                          final List<Consultant> consultantList,
-                         final String outputDirectoryName) {
+                         final String outputDirectoryName) throws IOException {
         this.port = port;
         this.clientList = clientList;
         this.consultantList = consultantList;
         this.outputDirectoryName = outputDirectoryName;
-        this.serverSocket = new ServerSocket(port)
+        this.serverSocket = new ServerSocket(port);
     }
 
     /**
@@ -74,8 +72,9 @@ public class InvoiceServer {
                 final CommandProcessor commandProcess = new CommandProcessor(client, "CommandProcessor_"+processorNum,clientList,consultantList,this);
                 final File serverDir = new File(outputDirectoryName,Integer.toString(processorNum));
                 if(serverDir.exists()||serverDir.mkdirs()){
-                    commandProcess.setOutput(serverDir.getAbsolutePath());
+                    //commandProcess//.//.setOutput(serverDir.getAbsolutePath());
                     final Thread thread = new Thread(commandProcess,"CommandProcessor_"+processorNum);
+                    thread.start();
                     processorNum++;
                 }
                 else{
@@ -114,7 +113,7 @@ public class InvoiceServer {
      * Read and process commands from the provided socket.
      * @param client the socket to read from
      */
-    void serviceConnection(final Socket client) {
+    /*void serviceConnection(final Socket client) {
         try {
             client.shutdownOutput();
             InputStream is = client.getInputStream();
@@ -144,7 +143,7 @@ public class InvoiceServer {
         } catch (final ClassNotFoundException ex) {
             logger.error("Unable to resolve read object.", ex);
         }
-    }
+    }*/
     
     /**
      * Shutdown the server.

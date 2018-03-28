@@ -1,9 +1,18 @@
 package com.scg.net.server;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.scg.domain.ClientAccount;
 import com.scg.domain.Consultant;
+import com.scg.domain.TimeCard;
 
 /**
  * ShutdownHook for the InvoiceServer, writes the current contents of the client and consultants 
@@ -11,12 +20,15 @@ import com.scg.domain.Consultant;
  * is running.
  * 
  * @author Brian Stamm
- *
  */
 public class InvoiceServerShutdownHook extends Thread implements Runnable {
 
 		/** The socket connection. */
-    private final Socket clientSocket;
+    //private final Socket clientSocket;
+	/** The class' logger. */
+    private static final Logger log =
+            LoggerFactory.getLogger(InvoiceServerShutdownHook.class);
+	
 
     /** The client list */
     private final List<ClientAccount> clientList;
@@ -37,9 +49,7 @@ public class InvoiceServerShutdownHook extends Thread implements Runnable {
 	 * @param consultantList - the ConsultantList to serialize.
 	 * @param outputDirectoryName - name of directory to write output to
 	 */
-	public InvoiceServerShutdownHook(List<ClientAccount> clientList,
-            List<Consultant> consultantList,
-            String outputDirectoryName) {
+	public InvoiceServerShutdownHook(List<ClientAccount> clientList,List<Consultant> consultantList, String outputDirectoryName) {
 		this.clientList = clientList;
 		this.consultantList = consultantList;
 		this.outputDirectoryName = outputDirectoryName;
@@ -71,7 +81,11 @@ public class InvoiceServerShutdownHook extends Thread implements Runnable {
 					}
 				}
 			}
+			catch(FileNotFoundException e) {
+				log.error("This was wrong:  " + e);
+			}
 		}
 	}
-	
 }
+	
+

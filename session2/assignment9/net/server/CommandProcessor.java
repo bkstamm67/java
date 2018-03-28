@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
@@ -21,6 +23,7 @@ import com.scg.domain.TimeCard;
 import com.scg.net.cmd.AddClientCommand;
 import com.scg.net.cmd.AddConsultantCommand;
 import com.scg.net.cmd.AddTimeCardCommand;
+import com.scg.net.cmd.Command;
 import com.scg.net.cmd.CreateInvoicesCommand;
 import com.scg.net.cmd.DisconnectCommand;
 import com.scg.net.cmd.ShutdownCommand;
@@ -217,7 +220,7 @@ public final class CommandProcessor implements Runnable {
      */
 	@Override
 	public void run() {
-		try (ServerSocket serverSocket = new ServerSocket(port)) {
+		/*try (ServerSocket serverSocket = new ServerSocket(port)) {
 			this.serverSocket = serverSocket;
 			logger.info("InvoiceServer started on: "
 				    + serverSocket.getInetAddress().getHostName() + ":"
@@ -235,6 +238,36 @@ public final class CommandProcessor implements Runnable {
 		}
 		catch (final IOException e1) {
 			logger.error("Unable to bind server socket to port " + port);
-		}
+		}*/
+		ObjectInputStream in = null;
+	    try {
+	    		clientSocket.shutdownOutput();
+            InputStream is = clientSocket.getInputStream();
+	        in = new ObjectInputStream(is);
+	        
+	        final CommandProcessor cmdProc =
+	                new CommandProcessor(clientSocket, "name", clientList, consultantList, server);
+	        
+	        cmdProc.setOutPutDirectoryName(outputDirectoryName);
+	        while (!clientSocket.isClosed()) {
+	                final Object obj = in.readObject();
+	                if (obj == null) {
+	                	clientSocket.close();
+	                } else if (obj instanceof Command<?>) {
+	                    final Command<?> command = (Command<?>)obj;
+	                    logger.info("Received command: "
+	                              + command.getClass().getSimpleName());
+	                    command.setReceiver(cmdProc);
+	                    command.execute();
+	                } else {
+	                    logger.warn(String.format("Received non command object, %s, discarding.",
+	                            obj.getClass().getSimpleName()));
+	                }
+	            }
+	        } catch (final IOException ex) {
+	            logger.error("IO failure.", ex);
+	        } catch (final ClassNotFoundException ex) {
+	            logger.error("Unable to resolve read object.", ex);
+	        }
 	}
 }
