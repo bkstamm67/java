@@ -34,11 +34,12 @@ import com.scg.net.cmd.ShutdownCommand;
  * supported commands.  Is provided with the client and consultant lists from the
  * Invoice server, maintains its own time card list.
  *
- * @author Russ Moul
+ * @author Brian Stamm
  */
 
 public final class CommandProcessor implements Runnable {
-    /** The class' logger. */
+    
+	/** The class' logger. */
     private static final Logger logger =
                          LoggerFactory.getLogger(CommandProcessor.class);
 
@@ -102,13 +103,13 @@ public final class CommandProcessor implements Runnable {
      * @param command the command to execute.
      */
     public void execute(final AddTimeCardCommand command) {
-        logger.info("Executing add time card command: "  + command);
-	final TimeCard newTimeCard = command.getTarget();
-	synchronized(timeCardList){
-		if(!timeCardList.contains(newTimeCard)){
-			timeCardList.add(newTimeCard);
-		}
-	}
+    		logger.info("Executing add time card command: "  + command);
+    		final TimeCard newTimeCard = command.getTarget();
+    		synchronized(timeCardList){
+    			if(!timeCardList.contains(newTimeCard)){
+    				timeCardList.add(newTimeCard);
+    			}
+    		}
     }
 
     /**
@@ -117,13 +118,13 @@ public final class CommandProcessor implements Runnable {
      * @param command the command to execute.
      */
     public void execute(final AddClientCommand command) {
-        logger.info("Executing add client command: "  + command);
-        final ClientAccount newAccount = command.getTarget();
-	synchronized(clientList){
-		if(!clientList.contains(newAccount)){
-			clientList.add(newAccount);
-		}
-	}
+    		logger.info("Executing add client command: "  + command);
+    		final ClientAccount newAccount = command.getTarget();
+    		synchronized(clientList){
+    			if(!clientList.contains(newAccount)){
+    				clientList.add(newAccount);
+    			}
+    		}
     }
 
     /**
@@ -132,13 +133,13 @@ public final class CommandProcessor implements Runnable {
      * @param command the command to execute.
      */
     public void execute(final AddConsultantCommand command) {
-        logger.info("Executing add consultant command: "  + command);
+    		logger.info("Executing add consultant command: "  + command);
         final Consultant newConsultant = command.getTarget();
-	synchronized(consultantList){
-		if(!consultantList.contains(newConsultant)){
-			consultantList.add(newConsultant);
-		}
-	}
+        synchronized(consultantList){
+        		if(!consultantList.contains(newConsultant)){
+        			consultantList.add(newConsultant);
+        		}
+        	}
     }
 
     /**
@@ -147,39 +148,45 @@ public final class CommandProcessor implements Runnable {
      * @param command the command to execute.
      */
     public void execute(final CreateInvoicesCommand command) {
-        logger.info("Executing invoice command: " + command);
-        Invoice invoice = null;
-        LocalDate date = command.getTarget();
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMMyyyy");
-        final String monthString = formatter.format(date);
-        synchronized(clientList){
-	for (final ClientAccount client : clientList) {
-            invoice = new Invoice(client, date.getMonth(), date.getYear());
-            for (final TimeCard currentTimeCard : timeCardList) {
-                invoice.extractLineItems(currentTimeCard);
-            }
-            if (invoice.getTotalHours() > 0) {
-                final File serverDir = new File(outputDirectoryName);
-                if (!serverDir.exists()) {
-                    if (!serverDir.mkdirs()) {
-                        logger.error("Unable to create directory, " + serverDir.getAbsolutePath());
-                        return;
-                    }
-                }
-                final String outFileName = String.format("%s%sInvoice.txt",
-                                           client.getName().replaceAll(" ", ""),
-                                           monthString);
-                final File outFile = new File(outputDirectoryName, outFileName);
-                try (PrintStream printOut = new PrintStream(new FileOutputStream(outFile), true, ENCODING);) {
-                    printOut.println(invoice.toReportString());
-                } catch (final FileNotFoundException e) {
-                    logger.error("Can't open file " + outFileName, e);
-                } catch (UnsupportedEncodingException e) {
-                    logger.error("Can't write to file, bad encoding.", e);
-				}
-            }
-        }
-	}
+    		logger.info("Executing invoice command: " + command);
+    		Invoice invoice = null;
+    		LocalDate date = command.getTarget();
+    		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMMyyyy");
+    		final String monthString = formatter.format(date);
+    		synchronized(clientList){
+    			for (final ClientAccount client : clientList) {
+    				invoice = new Invoice(client, date.getMonth(), date.getYear());
+    				
+    				for (final TimeCard currentTimeCard : timeCardList) {
+    					invoice.extractLineItems(currentTimeCard);
+    				}
+    				
+    				if (invoice.getTotalHours() > 0) {
+    					final File serverDir = new File(outputDirectoryName);
+    					if (!serverDir.exists()) {
+    						if (!serverDir.mkdirs()) {
+    							logger.error("Unable to create directory, " + serverDir.getAbsolutePath());
+    							return;
+    						}
+    					}
+    					
+    					final String outFileName = String.format("%s%sInvoice.txt",
+    						client.getName().replaceAll(" ", ""),
+    						monthString);
+    					final File outFile = new File(outputDirectoryName, outFileName);
+    					
+    					try (PrintStream printOut = new PrintStream(new FileOutputStream(outFile), true, ENCODING);) {
+    						printOut.println(invoice.toReportString());
+    					}
+    					catch (final FileNotFoundException e) {
+    						logger.error("Can't open file " + outFileName, e);
+    					}
+    					catch (UnsupportedEncodingException e) {
+    						logger.error("Can't write to file, bad encoding.", e);
+    					}
+    				}
+    			}
+    		}
     }
 
     /**
@@ -207,9 +214,11 @@ public final class CommandProcessor implements Runnable {
         logger.info("Executing shutdown command: " + command);
         try {
             clientSocket.close();
-        } catch (final IOException e) {
+        }
+        catch (final IOException e) {
             logger.warn("Shutdown unable to close client connection.", e);
-        } finally {
+        }
+        finally {
             server.shutdown();
         }
     }
@@ -220,54 +229,39 @@ public final class CommandProcessor implements Runnable {
      */
 	@Override
 	public void run() {
-		/*try (ServerSocket serverSocket = new ServerSocket(port)) {
-			this.serverSocket = serverSocket;
-			logger.info("InvoiceServer started on: "
-				    + serverSocket.getInetAddress().getHostName() + ":"
-				    + serverSocket.getLocalPort());
-			
-			while (!serverSocket.isClosed()) {
-				logger.info("InvoiceServer waiting for connection on port " + port);
-				try (Socket client = serverSocket.accept()) {
-					serviceConnection(client);
-				} 
-				catch (final SocketException sx) {
-					logger.info("Server socket closed.");
-				}
-			}
-		}
-		catch (final IOException e1) {
-			logger.error("Unable to bind server socket to port " + port);
-		}*/
 		ObjectInputStream in = null;
-	    try {
-	    		clientSocket.shutdownOutput();
+		try {
+			clientSocket.shutdownOutput();
             InputStream is = clientSocket.getInputStream();
 	        in = new ObjectInputStream(is);
-	        
 	        final CommandProcessor cmdProc =
 	                new CommandProcessor(clientSocket, "name", clientList, consultantList, server);
-	        
 	        cmdProc.setOutPutDirectoryName(outputDirectoryName);
+	        
 	        while (!clientSocket.isClosed()) {
-	                final Object obj = in.readObject();
-	                if (obj == null) {
-	                	clientSocket.close();
-	                } else if (obj instanceof Command<?>) {
-	                    final Command<?> command = (Command<?>)obj;
-	                    logger.info("Received command: "
-	                              + command.getClass().getSimpleName());
-	                    command.setReceiver(cmdProc);
-	                    command.execute();
-	                } else {
-	                    logger.warn(String.format("Received non command object, %s, discarding.",
-	                            obj.getClass().getSimpleName()));
-	                }
-	            }
-	        } catch (final IOException ex) {
-	            logger.error("IO failure.", ex);
-	        } catch (final ClassNotFoundException ex) {
-	            logger.error("Unable to resolve read object.", ex);
-	        }
+	        		final Object obj = in.readObject();
+	        		
+	        		if (obj == null) {
+	        			clientSocket.close();
+	        		}
+	        		else if (obj instanceof Command<?>) {
+	        			final Command<?> command = (Command<?>)obj;
+	        			logger.info("Received command: "
+	        					+ command.getClass().getSimpleName());
+	        			command.setReceiver(cmdProc);
+	        			command.execute();
+	        		}
+	        		else {
+	        			logger.warn(String.format("Received non command object, %s, discarding.",
+	        					obj.getClass().getSimpleName()));
+	        		}
+	        	}
+	    } 
+		catch (final IOException ex) {
+			logger.error("IO failure.", ex);
+		} 
+		catch (final ClassNotFoundException ex) {
+			logger.error("Unable to resolve read object.", ex);
+		}
 	}
 }

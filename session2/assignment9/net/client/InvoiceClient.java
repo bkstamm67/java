@@ -29,7 +29,7 @@ import com.scg.util.StateCode;
  * add clients, consultants and time cards and then has the server create an
  * invoice.
  *
- * @author Russ Moul
+ * @author Brian Stamm
  */
 public final class InvoiceClient extends Thread{
     /** This class' logger. */
@@ -76,11 +76,13 @@ public final class InvoiceClient extends Thread{
             System.out.println(String.format("Connected to server at: %s/%s:%d",
                     server.getInetAddress().getHostName(),
                     server.getInetAddress().getHostAddress(), server.getPort()));
+            
             // We don't expect to get any input so shut it down.
             server.shutdownInput();
             out = new ObjectOutputStream(server.getOutputStream());
             sendClients(out);
             sendConsultants(out);
+            
             // make sure we can handle unknown commands
             out.writeObject("NOT_A_COMMAND");
             sendTimeCards(out);
@@ -154,12 +156,6 @@ public final class InvoiceClient extends Thread{
     public void sendDisconnect(final ObjectOutputStream out, final Socket server) {
         final DisconnectCommand command = new DisconnectCommand();
         sendCommand(out, command);
-        /*
-        try {
-            server.close();
-        } catch (IOException e) {
-            logger.warn("Error closing socket.", e);
-        }*/
     }
 
     /**

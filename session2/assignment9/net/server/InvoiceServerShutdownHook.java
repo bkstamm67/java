@@ -3,8 +3,6 @@ package com.scg.net.server;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import com.scg.domain.ClientAccount;
 import com.scg.domain.Consultant;
-import com.scg.domain.TimeCard;
 
 /**
  * ShutdownHook for the InvoiceServer, writes the current contents of the client and consultants 
@@ -23,21 +20,15 @@ import com.scg.domain.TimeCard;
  */
 public class InvoiceServerShutdownHook extends Thread implements Runnable {
 
-		/** The socket connection. */
-    //private final Socket clientSocket;
 	/** The class' logger. */
     private static final Logger log =
             LoggerFactory.getLogger(InvoiceServerShutdownHook.class);
 	
-
     /** The client list */
     private final List<ClientAccount> clientList;
 
     /** The consultant list  */
     private final List<Consultant> consultantList;
-
-    /** The time card list to be maintained by this CommandProcessor. */
-    private final List<TimeCard> timeCardList = new ArrayList<TimeCard>();
 
     /** The name of the directory to be used for files output by commands. */
     private String outputDirectoryName = ".";
@@ -68,8 +59,8 @@ public class InvoiceServerShutdownHook extends Thread implements Runnable {
 			File clientFile = new File(serverDir, "ClientList.txt");
 			File consultantFile = new File(serverDir, "ConsultantList.txt");
 			
-			try(PrintStream clientOut = new PrintStream(serverDir);
-			    PrintStream consultantOut = new PrintStream(serverDir);){
+			try(PrintStream clientOut = new PrintStream(clientFile);
+			    PrintStream consultantOut = new PrintStream(consultantFile);){
 				synchronized(clientList){
 					for(ClientAccount client : clientList){
 						clientOut.println(client);
