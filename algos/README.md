@@ -1,9 +1,9 @@
 Here are some basic algorithms, along with a basic pseudocode.
 
 ## Table of Contents
-- [Breadth First Search]
-- [Depth First Search]
-- [Dijkstra's]
+- [Breadth First Search](#breadth-first-search)
+- [Depth First Search](#depth-first-search)
+- [Dijkstra](#dijkstra)
 
 ## Breadth First Search
 * Info
@@ -13,6 +13,6 @@ Here are some basic algorithms, along with a basic pseudocode.
 * Info
 * Pseudocode
 
-## Dijkstra's
+## Dijkstra
 * Info
 * Pseudocode
