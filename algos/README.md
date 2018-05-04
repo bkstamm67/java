@@ -7,9 +7,9 @@ Here are some basic algorithms, along with a basic pseudocode.
 
 ## Breadth First Search
 * Info
-	Runtime is this.
-	Here's more stuff.
-	Blah blah.
+	* Runtime is this.
+	* Here's more stuff.
+	* Blah blah.
 * [Wikipedia entry](https://en.wikipedia.org/wiki/Breadth-first_search)
 * Pseudocode
 
