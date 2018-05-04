@@ -6,8 +6,12 @@ Here are some basic algorithms, along with a basic pseudocode.
 - [Dijkstra](#dijkstra)
 
 ## Breadth First Search
-* Info
-* Pseudocode
+	* Info
+		Runtime is this.
+		Here's more stuff.
+		Blah blah.
+	* [Wikipedia entry](https://en.wikipedia.org/wiki/Breadth-first_search)
+	* Pseudocode
 
 ## Depth First Search
 * Info
