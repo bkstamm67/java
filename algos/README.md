@@ -1,9 +1,31 @@
-Here are some basic algorithms, along with a basic pseudocode.  All of this information can be found easily throughout the web or a simple algorithm textbook.  I have placed these here for my own personal use and study.
+Here are some basic algorithms, along with a basic pseudocode.  All of this information can be found easily throughout the web or a simple algorithm textbook.  I have placed these here for my own personal use and study.  There are several resources I have used to create this and have attempted to credit when possible.  None are original.
 
 ## Table of Contents
+- [Insertion Sort](#insertion-sort)
+- [Merge Sort](#mergesort)
 - [Breadth First Search](#breadth-first-search)
 - [Depth First Search](#depth-first-search)
 - [Dijkstra](#dijkstra)
+
+## Web Resources
+- [Wikipedia](https://en.wikipedia.org/wiki/Main_Page)
+- [Geeks for Geeks](https://www.geeksforgeeks.org/)
+- [Google](http://www.google.com/)
+- [Rosetta Code](http://rosettacode.org/wiki/Rosetta_Code)
+
+## Sort
+### Insertion Sort
+* Intro
+	* This is a very basic sorting algorithm
+	* Runtime - O(n^2)
+* Pseudocode
+* [Geeks for Geeks entry](https://www.geeksforgeeks.org/insertion-sort/)
+
+### MergeSort
+* Intro
+	* This is a better sorting algorithm that uses a divide and conquer method. It continually divides a list into halves recursively until it gets only one item.  Then it puts those items back together in sorted order.
+* Pseudocode
+* [Google](http://www.google.com)
 
 ## Graphing
 ### Breadth First Search
@@ -15,7 +37,6 @@ Here are some basic algorithms, along with a basic pseudocode.  All of this info
 		* set all vertices to Not Visited
 		* Q = empty queue
 		* Q.enqueue(startVertice)
-
 		* while (Q is not empty)
 			* currentV = Q.dequeue
 			* if currentV Not Visited
@@ -25,9 +46,11 @@ Here are some basic algorithms, along with a basic pseudocode.  All of this info
 * [Wikipedia entry](https://en.wikipedia.org/wiki/Breadth-first_search)
 
 ### Depth First Search
-* Info
+* Intro
 * Pseudocode
+* [Google](http://www.google.com)
 
 ### Dijkstra
-* Info
+* Intro
 * Pseudocode
+* [Google](http://www.google.com)
