@@ -2,6 +2,7 @@ Here are some basic algorithms, along with a basic pseudocode.  All of this info
 
 ## Table of Contents
 - [Insertion Sort](#insertion-sort)
+- [Selection Sort](#selection-sort)
 - [Merge Sort](#mergesort)
 - [Breadth First Search](#breadth-first-search)
 - [Depth First Search](#depth-first-search)
