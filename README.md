@@ -1,7 +1,1 @@
-These are a example Java programs.  As in my python repo, I am going through
-my past assignments with C++ and translating them into Java.  This is a work
-in progress.
-
-Within the ./simpleMain folder, there are programs with basic programs 
-showing basic skills with Java.  In ./simpleClass, there is programs using
-classes.
+These are a example Java programs that I have worked on over time.  There are some past assignments that are kept under the folder 'old'.  I am working on other algorithms and data structures for my personal study and review.
