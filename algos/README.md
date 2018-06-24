@@ -4,6 +4,7 @@ Here are some basic algorithms, along with a basic pseudocode.  All of this info
 - [Insertion Sort](#insertion-sort)
 - [Selection Sort](#selection-sort)
 - [Merge Sort](#mergesort)
+- [Heap Sort](#heapsort)
 - [Breadth First Search](#breadth-first-search)
 - [Depth First Search](#depth-first-search)
 - [Dijkstra](#dijkstra)
@@ -18,30 +19,40 @@ Here are some basic algorithms, along with a basic pseudocode.  All of this info
 ## Sort
 ### Insertion Sort
 * Intro
-	* This is a very basic sorting algorithm
+	* This is a very basic sorting algorithm, than moves elements one at a time into the correct position of the array
 	* Runtime - O(n^2)
-* Pseudocode
-	* insertionSort(array)
-		* for i from 1 to length of array
-			* value of array[i]
-			* index j is equal to i-1
-			* while j is >= 0 and if array[j] > value
-				*  
 * [Geeks for Geeks entry](https://www.geeksforgeeks.org/insertion-sort/)
 
 ### Selection Sort
 * Intro
-	* This is another very basic sorting algorithm
+	* This is another very basic sorting algorithm - finding the smallest element, and places it at the beginning of the array.  It then looks at the remaining elements needing to be sorted, finding the smallest, and places it next to the first element.  It continues until the entire array is sorted.  
+	* The benefit to this is that although it is inefficient is that this sorting 
+	algorithm moves the least amount of elements, so if writing data is expensive, this is a good option.
 	* Runtime - O(n^2)
-* Pseudocode
-* Entry
+* [Wikipedia](https://en.wikipedia.org/wiki/Selection_sort)
 
 ### MergeSort
 * Intro
 	* This is a better sorting algorithm that uses a divide and conquer method. It continually divides a list into halves recursively until it gets only one item.  Then it puts those items back together in sorted order.
 	* Runtime - O(nlogn)
-* Pseudocode
 * [Geeks for Geeks entry](https://www.geeksforgeeks.org/merge-sort/)
+
+### HeapSort
+* Intro
+	* This sorting algorithm runs through the array, using the properties of a
+	max heap to find the largest value, place it at the end of the array, and 
+	continue that behavoir until it's sorted.  One benefit of the heap sort is
+	it is done in place, so no extra storage is needed.
+	* Runtime - O(nlogn)
+* Pseudocode
+	* heapSort(array,count)
+		* heapify(array, count), placing in max-heap order
+		* end = count -1
+		* while end > 0
+			* swap max value with last element
+			* put heap back in max-heap order
+* [Geeks for Geeks entry](https://www.geeksforgeeks.org/heap-sort/)
+
 
 ## Graphing
 ### Breadth First Search
